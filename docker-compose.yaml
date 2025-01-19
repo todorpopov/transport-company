@@ -1,0 +1,18 @@
+services:
+  db:
+    container_name: db
+    image: postgres:16.3-alpine
+    volumes:
+      - ./psql_data/:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=java-test
+      - POSTGRES_USER=java-test
+      - POSTGRES_PASSWORD=java-test
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
