@@ -25,4 +25,52 @@ public class Driver {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
+
+    public Driver() {}
+
+    public Driver(String name, EDriverQualification qualification, Set<Freight> freights, Company company) {
+        this.name = name;
+        this.qualification = qualification;
+        this.freights = freights;
+        this.company = company;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public EDriverQualification getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(EDriverQualification qualification) {
+        this.qualification = qualification;
+    }
+
+    public Set<Freight> getFreights() {
+        return freights;
+    }
+
+    public void setFreights(Set<Freight> freights) {
+        this.freights = freights;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 }
