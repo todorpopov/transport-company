@@ -1,0 +1,9 @@
+package db.entities.driver;
+
+public enum EDriverQualification {
+    BUS_DRIVERS_LICENSE,
+    TRUCK_DRIVERS_LICENSE,
+    TANKER_DRIVERS_LICENSE,
+    FLAMMABLE_CARGO_QUALIFICATION,
+    COMBUSTIBLE_CARGO_QUALIFICATION,
+}

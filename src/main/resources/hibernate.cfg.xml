@@ -18,5 +18,11 @@
 
         <property name="hibernate.current_session_context_class">thread</property> <!-- Setup getCurrentSession for thread -->
 
+
+        <mapping class="db.entities.company.Company"/>
+        <mapping class="db.entities.driver.Driver"/>
+        <mapping class="db.entities.vehicle.Vehicle"/>
+        <mapping class="db.entities.freight.Freight"/>
+
     </session-factory>
 </hibernate-configuration>
