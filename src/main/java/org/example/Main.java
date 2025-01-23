@@ -5,7 +5,9 @@ import org.hibernate.Session;
 
 public class Main {
     public static void main(String[] args) {
-        // Test
+        Context globalContext = Context.getInstance();
+
+        globalContext.getTenant();
 
         System.out.print("Hello and welcome!");
         Session session = DBUtils.getCurrentSession();

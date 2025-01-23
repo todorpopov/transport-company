@@ -17,12 +17,15 @@ public class DriverDTO {
 
     private CompanyDTO company;
 
-    public DriverDTO(Long id, String name, EDriverQualification qualification, Set<FreightDTO> freights, CompanyDTO company) {
+    private Double salary;
+
+    public DriverDTO(Long id, String name, EDriverQualification qualification, Set<FreightDTO> freights, CompanyDTO company, Double salary) {
         this.id = id;
         this.name = name;
         this.qualification = qualification;
         this.freights = freights;
         this.company = company;
+        this.salary = salary;
     }
 
     public Long getId() {
@@ -65,6 +68,13 @@ public class DriverDTO {
         this.company = company;
     }
 
+    public Double getSalary() {
+        return salary;
+    }
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
     public static DriverDTO toDTO(Driver entity) {
         Set<FreightDTO> freights = entity.getFreights()
                 .stream()
@@ -76,7 +86,8 @@ public class DriverDTO {
                 entity.getName(),
                 entity.getQualification(),
                 freights,
-                CompanyDTO.toDTO(entity.getCompany())
+                CompanyDTO.toDTO(entity.getCompany()),
+                entity.getSalary()
         );
     }
 
@@ -90,7 +101,8 @@ public class DriverDTO {
                 dto.getName(),
                 dto.getQualification(),
                 freights,
-                CompanyDTO.toEntity(dto.getCompany())
+                CompanyDTO.toEntity(dto.getCompany()),
+                dto.getSalary()
         );
     }
 }

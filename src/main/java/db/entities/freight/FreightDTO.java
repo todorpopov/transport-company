@@ -22,7 +22,9 @@ public class FreightDTO {
 
     private Double cargoWeight;
 
-    public FreightDTO(Long id, DriverDTO driver, CompanyDTO company, String startLocation, String endLocation, java.util.Date startDate, java.util.Date endDate, EFreightType type, Double cargoWeight) {
+    private Double price;
+
+    public FreightDTO(Long id, DriverDTO driver, CompanyDTO company, String startLocation, String endLocation, java.util.Date startDate, java.util.Date endDate, EFreightType type, Double cargoWeight, Double price) {
         this.id = id;
         this.driver = driver;
         this.company = company;
@@ -32,6 +34,7 @@ public class FreightDTO {
         this.endDate = endDate;
         this.type = type;
         this.cargoWeight = cargoWeight;
+        this.price = price;
     }
 
     public Long getId() {
@@ -106,6 +109,13 @@ public class FreightDTO {
         this.cargoWeight = cargoWeight;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public static FreightDTO toDTO(Freight entity) {
         return new FreightDTO(
                 entity.getId(),
@@ -116,7 +126,8 @@ public class FreightDTO {
                 entity.getStartDate(),
                 entity.getEndDate(),
                 entity.getType(),
-                entity.getCargoWeight()
+                entity.getCargoWeight(),
+                entity.getPrice()
         );
     }
 
@@ -129,7 +140,8 @@ public class FreightDTO {
                 dto.getStartDate(),
                 dto.getEndDate(),
                 dto.getType(),
-                dto.getCargoWeight()
+                dto.getCargoWeight(),
+                dto.getPrice()
         );
     }
 }

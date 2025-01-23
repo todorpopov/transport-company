@@ -38,9 +38,12 @@ public class Freight {
     @Column(nullable = true)
     private Double cargoWeight;
 
+    @Column(nullable = false)
+    private Double price;
+
     public Freight() {}
 
-    public Freight(Driver driver, Company company, String startLocation, String endLocation, java.util.Date startDate, java.util.Date endDate, EFreightType type, Double cargoWeight) {
+    public Freight(Driver driver, Company company, String startLocation, String endLocation, java.util.Date startDate, java.util.Date endDate, EFreightType type, Double cargoWeight, Double price) {
         this.driver = driver;
         this.company = company;
         this.startLocation = startLocation;
@@ -49,6 +52,7 @@ public class Freight {
         this.endDate = new java.sql.Date(endDate.getTime());
         this.type = type;
         this.cargoWeight = cargoWeight;
+        this.price = price;
     }
 
     public Long getId() {
@@ -121,5 +125,12 @@ public class Freight {
 
     public void setCargoWeight(Double cargoWeight) {
         this.cargoWeight = cargoWeight;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

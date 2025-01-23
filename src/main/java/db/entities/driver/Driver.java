@@ -26,13 +26,17 @@ public class Driver {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
+    @Column(nullable = false)
+    private Double salary;
+
     public Driver() {}
 
-    public Driver(String name, EDriverQualification qualification, Set<Freight> freights, Company company) {
+    public Driver(String name, EDriverQualification qualification, Set<Freight> freights, Company company, Double salary) {
         this.name = name;
         this.qualification = qualification;
         this.freights = freights;
         this.company = company;
+        this.salary = salary;
     }
 
     public Long getId() {
@@ -72,5 +76,12 @@ public class Driver {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+    public void setSalary(Double salary) {
+        this.salary = salary;
     }
 }
