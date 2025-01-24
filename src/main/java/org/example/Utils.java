@@ -1,8 +1,18 @@
 package org.example;
 
+import java.util.Collection;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Utils {
+    public static <T> Stream<T> streamCheck(Collection<T> collection){
+        if(Objects.isNull(collection)){
+            return Stream.empty();
+        }
+        return collection.stream();
+    }
+
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();

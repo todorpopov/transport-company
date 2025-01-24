@@ -1,5 +1,6 @@
 package db.entities.company;
 
+import db.entities.client.Client;
 import db.entities.driver.Driver;
 import db.entities.freight.Freight;
 import db.entities.vehicle.Vehicle;
@@ -25,13 +26,17 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private Set<Freight> freights;
 
+    @ManyToMany(cascade = CascadeType.DETACH)
+    private Set<Client> clients;
+
     public Company() {}
 
-    public Company(String name, Set<Driver> drivers, Set<Vehicle> vehicles, Set<Freight> freights) {
+    public Company(String name, Set<Driver> drivers, Set<Vehicle> vehicles, Set<Freight> freights, Set<Client> clients) {
         this.name = name;
         this.drivers = drivers;
         this.vehicles = vehicles;
         this.freights = freights;
+        this.clients = clients;
     }
 
     public Long getId() {
@@ -72,5 +77,13 @@ public class Company {
 
     public Set<Freight> getFreights() {
         return freights;
+    }
+
+    public Set<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 }

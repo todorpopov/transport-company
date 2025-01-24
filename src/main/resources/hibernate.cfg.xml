@@ -23,6 +23,7 @@
         <mapping class="db.entities.driver.Driver"/>
         <mapping class="db.entities.vehicle.Vehicle"/>
         <mapping class="db.entities.freight.Freight"/>
+        <mapping class="db.entities.client.Client"/>
 
     </session-factory>
 </hibernate-configuration>

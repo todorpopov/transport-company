@@ -1,7 +1,8 @@
 package org.example;
 
 import db.DBUtils;
-import org.hibernate.Session;
+import db.entities.company.CompanyDAO;
+import db.entities.company.CompanyDTO;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,8 +10,8 @@ public class Main {
 
         globalContext.getTenant();
 
-        System.out.print("Hello and welcome!");
-        Session session = DBUtils.getCurrentSession();
+        CompanyDTO dto = new CompanyDTO(null, "Microsoft", null, null, null, null);
+        CompanyDAO.save(CompanyDTO.toEntity(dto));
         DBUtils.shutdown();
     }
 }

@@ -9,7 +9,11 @@ public class VehicleDTO {
 
     private CompanyDTO company;
 
-    public VehicleDTO(Long id, EVehicleType type, CompanyDTO company) {
+    public VehicleDTO(
+            Long id,
+            EVehicleType type,
+            CompanyDTO company
+    ) {
         this.id = id;
         this.type = type;
         this.company = company;

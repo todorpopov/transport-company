@@ -24,7 +24,18 @@ public class FreightDTO {
 
     private Double price;
 
-    public FreightDTO(Long id, DriverDTO driver, CompanyDTO company, String startLocation, String endLocation, java.util.Date startDate, java.util.Date endDate, EFreightType type, Double cargoWeight, Double price) {
+    public FreightDTO(
+            Long id,
+            DriverDTO driver,
+            CompanyDTO company,
+            String startLocation,
+            String endLocation,
+            java.util.Date startDate,
+            java.util.Date endDate,
+            EFreightType type,
+            Double cargoWeight,
+            Double price
+    ) {
         this.id = id;
         this.driver = driver;
         this.company = company;

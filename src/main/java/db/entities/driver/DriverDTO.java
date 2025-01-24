@@ -3,6 +3,7 @@ package db.entities.driver;
 import db.entities.company.CompanyDTO;
 import db.entities.freight.Freight;
 import db.entities.freight.FreightDTO;
+import org.example.Utils;
 
 import java.util.Set;
 
@@ -19,7 +20,14 @@ public class DriverDTO {
 
     private Double salary;
 
-    public DriverDTO(Long id, String name, EDriverQualification qualification, Set<FreightDTO> freights, CompanyDTO company, Double salary) {
+    public DriverDTO(
+            Long id,
+            String name,
+            EDriverQualification qualification,
+            Set<FreightDTO> freights,
+            CompanyDTO company,
+            Double salary
+    ) {
         this.id = id;
         this.name = name;
         this.qualification = qualification;
@@ -76,8 +84,7 @@ public class DriverDTO {
     }
 
     public static DriverDTO toDTO(Driver entity) {
-        Set<FreightDTO> freights = entity.getFreights()
-                .stream()
+        Set<FreightDTO> freights = Utils.streamCheck(entity.getFreights())
                 .map(FreightDTO::toDTO)
                 .collect(java.util.stream.Collectors.toSet());
 
@@ -92,8 +99,7 @@ public class DriverDTO {
     }
 
     public static Driver toEntity(DriverDTO dto) {
-        Set<Freight> freights = dto.getFreights()
-                .stream()
+        Set<Freight> freights = Utils.streamCheck(dto.getFreights())
                 .map(FreightDTO::toEntity)
                 .collect(java.util.stream.Collectors.toSet());
 
