@@ -36,6 +36,35 @@ public class DriverDTO {
         this.salary = salary;
     }
 
+    public static DriverDTO toDTO(Driver entity) {
+        Set<FreightDTO> freights = Utils.streamCheck(entity.getFreights())
+                .map(FreightDTO::toDTO)
+                .collect(java.util.stream.Collectors.toSet());
+
+        return new DriverDTO(
+                entity.getId(),
+                entity.getName(),
+                entity.getQualification(),
+                freights,
+                CompanyDTO.toDTO(entity.getCompany()),
+                entity.getSalary()
+        );
+    }
+
+    public static Driver toEntity(DriverDTO dto) {
+        Set<Freight> freights = Utils.streamCheck(dto.getFreights())
+                .map(FreightDTO::toEntity)
+                .collect(java.util.stream.Collectors.toSet());
+
+        return new Driver(
+                dto.getName(),
+                dto.getQualification(),
+                freights,
+                CompanyDTO.toEntity(dto.getCompany()),
+                dto.getSalary()
+        );
+    }
+
     public Long getId() {
         return id;
     }
@@ -79,36 +108,8 @@ public class DriverDTO {
     public Double getSalary() {
         return salary;
     }
+
     public void setSalary(Double salary) {
         this.salary = salary;
-    }
-
-    public static DriverDTO toDTO(Driver entity) {
-        Set<FreightDTO> freights = Utils.streamCheck(entity.getFreights())
-                .map(FreightDTO::toDTO)
-                .collect(java.util.stream.Collectors.toSet());
-
-        return new DriverDTO(
-                entity.getId(),
-                entity.getName(),
-                entity.getQualification(),
-                freights,
-                CompanyDTO.toDTO(entity.getCompany()),
-                entity.getSalary()
-        );
-    }
-
-    public static Driver toEntity(DriverDTO dto) {
-        Set<Freight> freights = Utils.streamCheck(dto.getFreights())
-                .map(FreightDTO::toEntity)
-                .collect(java.util.stream.Collectors.toSet());
-
-        return new Driver(
-                dto.getName(),
-                dto.getQualification(),
-                freights,
-                CompanyDTO.toEntity(dto.getCompany()),
-                dto.getSalary()
-        );
     }
 }

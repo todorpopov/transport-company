@@ -17,7 +17,8 @@ public class Vehicle {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    public Vehicle() {}
+    public Vehicle() {
+    }
 
     public Vehicle(EVehicleType type, Company company) {
         this.type = type;

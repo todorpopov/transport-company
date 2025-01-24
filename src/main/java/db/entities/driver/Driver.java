@@ -29,7 +29,8 @@ public class Driver {
     @Column(nullable = false)
     private Double salary;
 
-    public Driver() {}
+    public Driver() {
+    }
 
     public Driver(String name, EDriverQualification qualification, Set<Freight> freights, Company company, Double salary) {
         this.name = name;
@@ -50,6 +51,7 @@ public class Driver {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -81,6 +83,7 @@ public class Driver {
     public Double getSalary() {
         return salary;
     }
+
     public void setSalary(Double salary) {
         this.salary = salary;
     }

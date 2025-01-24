@@ -16,7 +16,8 @@ public class Context {
 
     private VehicleDTO currentVehicle;
 
-    private Context() {}
+    private Context() {
+    }
 
     public static Context getInstance() {
         if (instance == null) {

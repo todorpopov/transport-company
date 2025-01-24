@@ -48,6 +48,35 @@ public class FreightDTO {
         this.price = price;
     }
 
+    public static FreightDTO toDTO(Freight entity) {
+        return new FreightDTO(
+                entity.getId(),
+                DriverDTO.toDTO(entity.getDriver()),
+                CompanyDTO.toDTO(entity.getCompany()),
+                entity.getStartLocation(),
+                entity.getEndLocation(),
+                entity.getStartDate(),
+                entity.getEndDate(),
+                entity.getType(),
+                entity.getCargoWeight(),
+                entity.getPrice()
+        );
+    }
+
+    public static Freight toEntity(FreightDTO dto) {
+        return new Freight(
+                DriverDTO.toEntity(dto.getDriver()),
+                CompanyDTO.toEntity(dto.getCompany()),
+                dto.getStartLocation(),
+                dto.getEndLocation(),
+                dto.getStartDate(),
+                dto.getEndDate(),
+                dto.getType(),
+                dto.getCargoWeight(),
+                dto.getPrice()
+        );
+    }
+
     public Long getId() {
         return id;
     }
@@ -123,36 +152,8 @@ public class FreightDTO {
     public Double getPrice() {
         return price;
     }
+
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public static FreightDTO toDTO(Freight entity) {
-        return new FreightDTO(
-                entity.getId(),
-                DriverDTO.toDTO(entity.getDriver()),
-                CompanyDTO.toDTO(entity.getCompany()),
-                entity.getStartLocation(),
-                entity.getEndLocation(),
-                entity.getStartDate(),
-                entity.getEndDate(),
-                entity.getType(),
-                entity.getCargoWeight(),
-                entity.getPrice()
-        );
-    }
-
-    public static Freight toEntity(FreightDTO dto) {
-        return new Freight(
-                DriverDTO.toEntity(dto.getDriver()),
-                CompanyDTO.toEntity(dto.getCompany()),
-                dto.getStartLocation(),
-                dto.getEndLocation(),
-                dto.getStartDate(),
-                dto.getEndDate(),
-                dto.getType(),
-                dto.getCargoWeight(),
-                dto.getPrice()
-        );
     }
 }

@@ -19,6 +19,21 @@ public class VehicleDTO {
         this.company = company;
     }
 
+    public static VehicleDTO toDTO(Vehicle entity) {
+        return new VehicleDTO(
+                entity.getId(),
+                entity.getType(),
+                CompanyDTO.toDTO(entity.getCompany())
+        );
+    }
+
+    public static Vehicle toEntity(VehicleDTO dto) {
+        return new Vehicle(
+                dto.getType(),
+                CompanyDTO.toEntity(dto.getCompany())
+        );
+    }
+
     public Long getId() {
         return id;
     }
@@ -41,20 +56,5 @@ public class VehicleDTO {
 
     public void setCompany(CompanyDTO company) {
         this.company = company;
-    }
-
-    public static VehicleDTO toDTO(Vehicle entity) {
-        return new VehicleDTO(
-                entity.getId(),
-                entity.getType(),
-                CompanyDTO.toDTO(entity.getCompany())
-        );
-    }
-
-    public static Vehicle toEntity(VehicleDTO dto) {
-        return new Vehicle(
-                dto.getType(),
-                CompanyDTO.toEntity(dto.getCompany())
-        );
     }
 }

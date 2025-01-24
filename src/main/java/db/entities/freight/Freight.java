@@ -41,7 +41,8 @@ public class Freight {
     @Column(nullable = false)
     private Double price;
 
-    public Freight() {}
+    public Freight() {
+    }
 
     public Freight(Driver driver, Company company, String startLocation, String endLocation, java.util.Date startDate, java.util.Date endDate, EFreightType type, Double cargoWeight, Double price) {
         this.driver = driver;
@@ -130,6 +131,7 @@ public class Freight {
     public Double getPrice() {
         return price;
     }
+
     public void setPrice(Double price) {
         this.price = price;
     }

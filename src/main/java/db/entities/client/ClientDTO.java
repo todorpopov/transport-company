@@ -25,6 +25,30 @@ public class ClientDTO {
         this.companies = companies;
     }
 
+    public static ClientDTO toDTO(Client entity) {
+        Set<CompanyDTO> companies = Utils.streamCheck(entity.getCompanies())
+                .map(CompanyDTO::toDTO)
+                .collect(java.util.stream.Collectors.toSet());
+
+        return new ClientDTO(
+                entity.getName(),
+                entity.isDebtor(),
+                companies
+        );
+    }
+
+    public static Client toEntity(ClientDTO dto) {
+        Set<Company> companies = Utils.streamCheck(dto.getCompanies())
+                .map(CompanyDTO::toEntity)
+                .collect(java.util.stream.Collectors.toSet());
+
+        return new Client(
+                dto.getName(),
+                dto.isDebtor(),
+                companies
+        );
+    }
+
     public Long getId() {
         return id;
     }
@@ -55,29 +79,5 @@ public class ClientDTO {
 
     public void setCompanies(Set<CompanyDTO> companies) {
         this.companies = companies;
-    }
-
-    public static ClientDTO toDTO(Client entity) {
-        Set<CompanyDTO> companies = Utils.streamCheck(entity.getCompanies())
-                .map(CompanyDTO::toDTO)
-                .collect(java.util.stream.Collectors.toSet());
-
-        return new ClientDTO(
-                entity.getName(),
-                entity.isDebtor(),
-                companies
-        );
-    }
-
-    public static Client toEntity(ClientDTO dto) {
-        Set<Company> companies = Utils.streamCheck(dto.getCompanies())
-                .map(CompanyDTO::toEntity)
-                .collect(java.util.stream.Collectors.toSet());
-
-        return new Client(
-                dto.getName(),
-                dto.isDebtor(),
-                companies
-        );
     }
 }

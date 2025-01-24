@@ -29,7 +29,8 @@ public class Company {
     @ManyToMany(cascade = CascadeType.DETACH)
     private Set<Client> clients;
 
-    public Company() {}
+    public Company() {
+    }
 
     public Company(String name, Set<Driver> drivers, Set<Vehicle> vehicles, Set<Freight> freights, Set<Client> clients) {
         this.name = name;
@@ -47,36 +48,36 @@ public class Company {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setDrivers(Set<Driver> drivers) {
-        this.drivers = drivers;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<Driver> getDrivers() {
         return drivers;
     }
 
-    public void setVehicles(Set<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+    public void setDrivers(Set<Driver> drivers) {
+        this.drivers = drivers;
     }
 
     public Set<Vehicle> getVehicles() {
         return vehicles;
     }
 
-    public void setFreights(Set<Freight> freights) {
-        this.freights = freights;
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     public Set<Freight> getFreights() {
         return freights;
+    }
+
+    public void setFreights(Set<Freight> freights) {
+        this.freights = freights;
     }
 
     public Set<Client> getClients() {

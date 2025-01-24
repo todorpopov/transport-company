@@ -20,7 +20,8 @@ public class Client {
     @ManyToMany(mappedBy = "clients")
     private Set<Company> companies;
 
-    public Client() {}
+    public Client() {
+    }
 
     public Client(String name, boolean debtor, Set<Company> companies) {
         this.name = name;

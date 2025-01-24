@@ -41,53 +41,6 @@ public class CompanyDTO {
         this.clients = clients;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setDrivers(Set<DriverDTO> drivers) {
-        this.drivers = drivers;
-    }
-
-    public Set<DriverDTO> getDrivers() {
-        return drivers;
-    }
-
-    public void setVehicles(Set<VehicleDTO> vehicles) {
-        this.vehicles = vehicles;
-    }
-
-    public Set<VehicleDTO> getVehicles() {
-        return vehicles;
-    }
-
-    public void setFreights(Set<FreightDTO> freights) {
-        this.freights = freights;
-    }
-
-    public Set<FreightDTO> getFreights() {
-        return freights;
-    }
-
-    public Set<ClientDTO> getClients() {
-        return clients;
-    }
-    public void setClients(Set<ClientDTO> clients) {
-        this.clients = clients;
-    }
-
     public static CompanyDTO toDTO(Company entity) {
         Set<DriverDTO> drivers = Utils.streamCheck(entity.getDrivers())
                 .map(DriverDTO::toDTO)
@@ -139,5 +92,53 @@ public class CompanyDTO {
                 freights,
                 clients
         );
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<DriverDTO> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(Set<DriverDTO> drivers) {
+        this.drivers = drivers;
+    }
+
+    public Set<VehicleDTO> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Set<VehicleDTO> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    public Set<FreightDTO> getFreights() {
+        return freights;
+    }
+
+    public void setFreights(Set<FreightDTO> freights) {
+        this.freights = freights;
+    }
+
+    public Set<ClientDTO> getClients() {
+        return clients;
+    }
+
+    public void setClients(Set<ClientDTO> clients) {
+        this.clients = clients;
     }
 }
