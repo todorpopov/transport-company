@@ -96,8 +96,16 @@ public class FreightDTO {
         return driver;
     }
 
+    public String getDriverName() {
+        return driver.getName();
+    }
+
     public CompanyDTO getCompany() {
         return company;
+    }
+
+    public String getCompanyName() {
+        return company.getName();
     }
 
     public String getStartLocation() {
@@ -118,6 +126,10 @@ public class FreightDTO {
 
     public EFreightType getType() {
         return type;
+    }
+
+    public String getTypeAsString() {
+        return type.toString();
     }
 
     public Double getCargoWeight() {

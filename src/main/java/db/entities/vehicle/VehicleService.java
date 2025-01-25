@@ -9,7 +9,7 @@ public class VehicleService implements IService<VehicleDTO> {
     private final VehicleDAO vehicleDao;
 
     public VehicleService(VehicleDAO vehicleDao) {
-        this.vehicleDao = vehicleDao != null ? vehicleDao : new VehicleDAO();
+        this.vehicleDao = vehicleDao;
     }
 
     @Override

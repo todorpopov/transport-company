@@ -11,7 +11,7 @@ public class FreightService implements IService<FreightDTO> {
     private final FreightDAO freightDao;
 
     public FreightService(FreightDAO freightDao) {
-        this.freightDao = freightDao != null ? freightDao : new FreightDAO();
+        this.freightDao = freightDao;
     }
 
     @Override

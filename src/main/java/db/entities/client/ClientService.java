@@ -9,7 +9,7 @@ public class ClientService implements IService<ClientDTO> {
     private final ClientDAO clientDao;
 
     public ClientService(ClientDAO clientDAO) {
-        this.clientDao = clientDAO != null ? clientDAO : new ClientDAO();
+        this.clientDao = clientDAO;
     }
 
     @Override

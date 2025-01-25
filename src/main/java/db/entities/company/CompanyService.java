@@ -9,7 +9,7 @@ public class CompanyService implements IService<CompanyDTO> {
     private final CompanyDAO companyDao;
     
     public CompanyService(CompanyDAO companyDAO) {
-        this.companyDao = companyDAO != null ? companyDAO : new CompanyDAO();
+        this.companyDao = companyDAO;
     }
 
     @Override

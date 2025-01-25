@@ -13,7 +13,7 @@ public class Vehicle {
     @Column(nullable = false)
     private EVehicleType type;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 

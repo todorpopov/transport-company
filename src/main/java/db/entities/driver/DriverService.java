@@ -10,7 +10,7 @@ public class DriverService implements IService<DriverDTO> {
     private final DriverDAO driverDao;
 
     public DriverService(DriverDAO driverDao) {
-        this.driverDao = driverDao != null ? driverDao : new DriverDAO();
+        this.driverDao = driverDao;
     }
 
     @Override
