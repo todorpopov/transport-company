@@ -4,12 +4,14 @@ import db.entities.company.Company;
 import db.entities.company.CompanyDTO;
 import org.example.Utils;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ClientDTO {
     private Long id;
 
-    private String name;
+    private final String name;
 
     private boolean debtor;
 
@@ -22,17 +24,17 @@ public class ClientDTO {
     ) {
         this.name = name;
         this.debtor = debtor;
-        this.companies = companies;
+        this.companies = companies != null ? companies : new HashSet<>();
     }
 
     public static ClientDTO toDTO(Client entity) {
         Set<CompanyDTO> companies = Utils.streamCheck(entity.getCompanies())
                 .map(CompanyDTO::toDTO)
-                .collect(java.util.stream.Collectors.toSet());
+                .collect(Collectors.toSet());
 
         return new ClientDTO(
                 entity.getName(),
-                entity.isDebtor(),
+                entity.getDebtor(),
                 companies
         );
     }
@@ -40,7 +42,7 @@ public class ClientDTO {
     public static Client toEntity(ClientDTO dto) {
         Set<Company> companies = Utils.streamCheck(dto.getCompanies())
                 .map(CompanyDTO::toEntity)
-                .collect(java.util.stream.Collectors.toSet());
+                .collect(Collectors.toSet());
 
         return new Client(
                 dto.getName(),
@@ -61,10 +63,6 @@ public class ClientDTO {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isDebtor() {
         return debtor;
     }
@@ -75,6 +73,10 @@ public class ClientDTO {
 
     public Set<CompanyDTO> getCompanies() {
         return companies;
+    }
+
+    public void addCompany(CompanyDTO company) {
+        this.companies.add(company);
     }
 
     public void setCompanies(Set<CompanyDTO> companies) {

@@ -18,7 +18,7 @@ public class Client {
     @Column(nullable = false)
     private boolean debtor;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "client_company",
             joinColumns = @JoinColumn(name = "client_id"),
@@ -32,30 +32,38 @@ public class Client {
     public Client(String name, boolean debtor, Set<Company> companies) {
         this.name = name;
         this.debtor = debtor;
-        this.companies = companies != null ? companies : new HashSet<Company>();
+        this.companies = companies != null ? companies : new HashSet<>();
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public boolean isDebtor() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean getDebtor() {
         return debtor;
+    }
+
+    public void setDebtor(boolean debtor) {
+        this.debtor = debtor;
     }
 
     public Set<Company> getCompanies() {
         return companies;
     }
 
-    public void setCompany(Company company) {
+    public void addCompany(Company company) {
         this.companies.add(company);
+    }
+
+    public void setCompanies(Set<Company> companies) {
+        this.companies = companies;
     }
 }

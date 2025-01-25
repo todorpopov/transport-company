@@ -4,6 +4,7 @@ import db.entities.company.Company;
 import db.entities.freight.Freight;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,10 +20,10 @@ public class Driver {
     @Column(nullable = false)
     private EDriverQualification qualification;
 
-    @OneToMany(mappedBy = "driver")
+    @OneToMany(mappedBy = "driver", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<Freight> freights;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     private Company company;
 
@@ -35,17 +36,13 @@ public class Driver {
     public Driver(String name, EDriverQualification qualification, Set<Freight> freights, Company company, Double salary) {
         this.name = name;
         this.qualification = qualification;
-        this.freights = freights;
+        this.freights = freights != null ? freights : new HashSet<Freight>();
         this.company = company;
         this.salary = salary;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -66,6 +63,10 @@ public class Driver {
 
     public Set<Freight> getFreights() {
         return freights;
+    }
+
+    public void addFreight(Freight freight) {
+        this.freights.add(freight);
     }
 
     public void setFreights(Set<Freight> freights) {

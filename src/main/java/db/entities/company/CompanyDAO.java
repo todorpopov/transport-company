@@ -1,14 +1,15 @@
 package db.entities.company;
 
 import db.DBUtils;
-import db.entities.driver.DriverDAO;
+import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class CompanyDAO {
-    public static void save(Company company) {
+public class CompanyDAO implements IDAO<Company> {
+    @Override
+    public void save(Company company) {
         Transaction transaction = null;
 
         try (Session session = DBUtils.getCurrentSession()) {
@@ -18,13 +19,20 @@ public class CompanyDAO {
         }
     }
 
-    public static Company getCompanyById(Long id) {
+    @Override
+    public Company getById(Long id) {
+        Transaction transaction = null;
+        Company company;
         try (Session session = DBUtils.getCurrentSession()) {
-            return session.get(Company.class, id);
+            transaction = session.beginTransaction();
+            company = session.get(Company.class, id);
+            transaction.commit();
         }
+        return company;
     }
 
-    public static List<Company> getAllCompanies() {
+    @Override
+    public List<Company> getAll() {
         Transaction transaction = null;
 
         List<Company> companies;
@@ -38,7 +46,8 @@ public class CompanyDAO {
         return companies;
     }
 
-    public static void updateCompany(Company company) {
+    @Override
+    public void update(Company company) {
         Transaction transaction = null;
 
         try (Session session = DBUtils.getCurrentSession()) {
@@ -48,7 +57,8 @@ public class CompanyDAO {
         }
     }
 
-    public static void deleteCompanyById(Long id) {
+    @Override
+    public void deleteById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             Company company = session.get(Company.class, id);
             if (company != null) {
@@ -57,13 +67,9 @@ public class CompanyDAO {
         }
     }
 
-    // Method for calculating the total profits from all freights of the company
+    // Sort companies by name
 
-    // Method for getting the count of all freights
+    // Sort companies by profits
 
-    // Method for listing all drivers with their representative number of freights
-
-    // Method for filtering freights by start and end date and combining their profits
-
-    // Method for listing all profits by individual drivers
+    // Filter companies by profits
 }

@@ -8,8 +8,10 @@ import db.entities.freight.Freight;
 import db.entities.freight.FreightDTO;
 import db.entities.vehicle.Vehicle;
 import db.entities.vehicle.VehicleDTO;
+import exceptions.InvalidFreighException;
 import org.example.Utils;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class CompanyDTO {
@@ -35,10 +37,10 @@ public class CompanyDTO {
     ) {
         this.id = id;
         this.name = name;
-        this.drivers = drivers;
-        this.vehicles = vehicles;
-        this.freights = freights;
-        this.clients = clients;
+        this.drivers = drivers != null ? drivers : new HashSet<>();
+        this.vehicles = vehicles != null ? vehicles : new HashSet<>();
+        this.freights = freights != null ? freights : new HashSet<>();
+        this.clients = clients != null ? clients : new HashSet<>();
     }
 
     public static CompanyDTO toDTO(Company entity) {
@@ -51,7 +53,13 @@ public class CompanyDTO {
                 .collect(java.util.stream.Collectors.toSet());
 
         Set<FreightDTO> freights = Utils.streamCheck(entity.getFreights())
-                .map(FreightDTO::toDTO)
+                .map(freight -> {
+                    try {
+                        return FreightDTO.toDTO(freight);
+                    } catch (InvalidFreighException e) {
+                        return null;
+                    }
+                })
                 .collect(java.util.stream.Collectors.toSet());
 
         Set<ClientDTO> clients = Utils.streamCheck(entity.getClients())
@@ -78,7 +86,13 @@ public class CompanyDTO {
                 .collect(java.util.stream.Collectors.toSet());
 
         Set<Freight> freights = Utils.streamCheck(dto.getFreights())
-                .map(FreightDTO::toEntity)
+                .map(freight -> {
+                    try {
+                        return FreightDTO.toEntity(freight);
+                    } catch (InvalidFreighException e) {
+                        return null;
+                    }
+                })
                 .collect(java.util.stream.Collectors.toSet());
 
         Set<Client> clients = Utils.streamCheck(dto.getClients())
@@ -114,12 +128,20 @@ public class CompanyDTO {
         return drivers;
     }
 
+    public void addDriver(DriverDTO driver) {
+        this.drivers.add(driver);
+    }
+
     public void setDrivers(Set<DriverDTO> drivers) {
         this.drivers = drivers;
     }
 
     public Set<VehicleDTO> getVehicles() {
         return vehicles;
+    }
+
+    public void addVehicle(VehicleDTO vehicle) {
+        this.vehicles.add(vehicle);
     }
 
     public void setVehicles(Set<VehicleDTO> vehicles) {
@@ -130,12 +152,20 @@ public class CompanyDTO {
         return freights;
     }
 
+    public void addFreight(FreightDTO freight) {
+        this.freights.add(freight);
+    }
+
     public void setFreights(Set<FreightDTO> freights) {
         this.freights = freights;
     }
 
     public Set<ClientDTO> getClients() {
         return clients;
+    }
+
+    public void addClient(ClientDTO client) {
+        this.clients.add(client);
     }
 
     public void setClients(Set<ClientDTO> clients) {

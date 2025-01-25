@@ -14,11 +14,11 @@ public class Freight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "driver_id", nullable = false)
     private Driver driver;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
@@ -57,7 +57,15 @@ public class Freight {
             EFreightType type,
             Double cargoWeight,
             Double price
-    ) {
+    ) throws InvalidFreighException {
+        if (type == EFreightType.CARGO && cargoWeight == null) {
+            throw new InvalidFreighException("Cargo freights must have weight");
+        }
+
+        if (type == EFreightType.PEOPLE && cargoWeight != null) {
+            throw new InvalidFreighException("People freights must not have weight");
+        }
+
         this.driver = driver;
         this.company = company;
         this.startLocation = startLocation;
@@ -73,89 +81,39 @@ public class Freight {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Driver getDriver() {
         return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
     }
 
     public Company getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
     public String getStartLocation() {
         return startLocation;
-    }
-
-    public void setStartLocation(String startLocation) {
-        this.startLocation = startLocation;
     }
 
     public String getEndLocation() {
         return endLocation;
     }
 
-    public void setEndLocation(String endLocation) {
-        this.endLocation = endLocation;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
     public EFreightType getType() {
         return type;
-    }
-
-    public void setType(EFreightType type) {
-        this.type = type;
     }
 
     public Double getCargoWeight() {
         return cargoWeight;
     }
 
-    public void setCargoWeight(Double cargoWeight) {
-        this.cargoWeight = cargoWeight;
-    }
-
     public Double getPrice() {
         return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public void validateFreight() throws InvalidFreighException {
-        if(this.type == EFreightType.CARGO && this.cargoWeight == null) {
-            throw new InvalidFreighException("Cargo freights must have weight");
-        }
-
-        if(this.type == EFreightType.PEOPLE && this.cargoWeight != null) {
-            throw new InvalidFreighException("People freights must not have weight");
-        }
     }
 }

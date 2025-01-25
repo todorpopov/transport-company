@@ -38,10 +38,6 @@ public class VehicleDTO {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public EVehicleType getType() {
         return type;
     }

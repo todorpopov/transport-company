@@ -1,13 +1,15 @@
 package db.entities.vehicle;
 
 import db.DBUtils;
+import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class VehicleDAO {
-    public static void save(Vehicle vehicle) {
+public class VehicleDAO implements IDAO<Vehicle> {
+    @Override
+    public void save(Vehicle vehicle) {
         Transaction transaction = null;
 
         try (Session session = DBUtils.getCurrentSession()) {
@@ -17,13 +19,15 @@ public class VehicleDAO {
         }
     }
 
-    public static Vehicle getVehicleById(Long id) {
+    @Override
+    public Vehicle getById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             return session.get(Vehicle.class, id);
         }
     }
 
-    public static List<Vehicle> getAllVehicle() {
+    @Override
+    public List<Vehicle> getAll() {
         Transaction transaction = null;
 
         List<Vehicle> companies;
@@ -37,7 +41,8 @@ public class VehicleDAO {
         return companies;
     }
 
-    public static void updateVehicle(Vehicle vehicle) {
+    @Override
+    public void update(Vehicle vehicle) {
         Transaction transaction = null;
 
         try (Session session = DBUtils.getCurrentSession()) {
@@ -47,7 +52,8 @@ public class VehicleDAO {
         }
     }
 
-    public static void deleteVehicleById(Long id) {
+    @Override
+    public void deleteById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             Vehicle vehicle = session.get(Vehicle.class, id);
             if (vehicle != null) {

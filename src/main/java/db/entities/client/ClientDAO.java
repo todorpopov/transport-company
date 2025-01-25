@@ -1,13 +1,15 @@
 package db.entities.client;
 
 import db.DBUtils;
+import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class ClientDAO {
-    public static void save(Client client) {
+public class ClientDAO implements IDAO<Client> {
+    @Override
+    public void save(Client client) {
         Transaction transaction = null;
 
         try (Session session = DBUtils.getCurrentSession()) {
@@ -17,13 +19,15 @@ public class ClientDAO {
         }
     }
 
-    public static Client getClientById(Long id) {
+    @Override
+    public Client getById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             return session.get(Client.class, id);
         }
     }
 
-    public static List<Client> getAllClients() {
+    @Override
+    public List<Client> getAll() {
         Transaction transaction = null;
 
         List<Client> companies;
@@ -37,7 +41,8 @@ public class ClientDAO {
         return companies;
     }
 
-    public static void updateClient(Client client) {
+    @Override
+    public void update(Client client) {
         Transaction transaction = null;
 
         try (Session session = DBUtils.getCurrentSession()) {
@@ -47,7 +52,8 @@ public class ClientDAO {
         }
     }
 
-    public static void deleteClientById(Long id) {
+    @Override
+    public void deleteById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             Client client = session.get(Client.class, id);
             if (client != null) {

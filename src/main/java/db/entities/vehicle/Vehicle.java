@@ -13,7 +13,7 @@ public class Vehicle {
     @Column(nullable = false)
     private EVehicleType type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
@@ -29,16 +29,8 @@ public class Vehicle {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public EVehicleType getType() {
         return type;
-    }
-
-    public void setType(EVehicleType type) {
-        this.type = type;
     }
 
     public Company getCompany() {

@@ -3,6 +3,7 @@ package db.entities.driver;
 import db.entities.company.CompanyDTO;
 import db.entities.freight.Freight;
 import db.entities.freight.FreightDTO;
+import exceptions.InvalidFreighException;
 import org.example.Utils;
 
 import java.util.Set;
@@ -38,7 +39,13 @@ public class DriverDTO {
 
     public static DriverDTO toDTO(Driver entity) {
         Set<FreightDTO> freights = Utils.streamCheck(entity.getFreights())
-                .map(FreightDTO::toDTO)
+                .map(freight -> {
+                    try {
+                        return FreightDTO.toDTO(freight);
+                    } catch (InvalidFreighException e) {
+                        return null;
+                    }
+                })
                 .collect(java.util.stream.Collectors.toSet());
 
         return new DriverDTO(
@@ -53,7 +60,13 @@ public class DriverDTO {
 
     public static Driver toEntity(DriverDTO dto) {
         Set<Freight> freights = Utils.streamCheck(dto.getFreights())
-                .map(FreightDTO::toEntity)
+                .map(freight -> {
+                    try {
+                        return FreightDTO.toEntity(freight);
+                    } catch (InvalidFreighException e) {
+                        return null;
+                    }
+                })
                 .collect(java.util.stream.Collectors.toSet());
 
         return new Driver(
@@ -67,10 +80,6 @@ public class DriverDTO {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -91,6 +100,10 @@ public class DriverDTO {
 
     public Set<FreightDTO> getFreights() {
         return freights;
+    }
+
+    public void addFreight(FreightDTO freight) {
+        this.freights.add(freight);
     }
 
     public void setFreights(Set<FreightDTO> freights) {

@@ -1,17 +1,16 @@
 package db.entities.freight;
 
 import db.DBUtils;
-import exceptions.InvalidFreighException;
+import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class FreightDAO {
-    public static void save(Freight freight) throws InvalidFreighException {
+public class FreightDAO implements IDAO<Freight> {
+    @Override
+    public void save(Freight freight) {
         Transaction transaction = null;
-
-        freight.validateFreight();
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
@@ -20,13 +19,15 @@ public class FreightDAO {
         }
     }
 
-    public static Freight getFreightById(Long id) {
+    @Override
+    public Freight getById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             return session.get(Freight.class, id);
         }
     }
 
-    public static List<Freight> getAllFreight() {
+    @Override
+    public List<Freight> getAll() {
         Transaction transaction = null;
 
         List<Freight> companies;
@@ -40,10 +41,9 @@ public class FreightDAO {
         return companies;
     }
 
-    public static void updateFreight(Freight freight) throws InvalidFreighException {
+    @Override
+    public void update(Freight freight) {
         Transaction transaction = null;
-
-        freight.validateFreight();
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
@@ -52,7 +52,8 @@ public class FreightDAO {
         }
     }
 
-    public static void deleteFreightById(Long id) {
+    @Override
+    public void deleteById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             Freight freight = session.get(Freight.class, id);
             if (freight != null) {
@@ -60,4 +61,12 @@ public class FreightDAO {
             }
         }
     }
+
+    // Method for calculating the total profits from all freights of the company
+
+    // Method for filtering freights by start and end date
+
+    // Method for filtering freights by their price
+
+    // Filter by destination
 }

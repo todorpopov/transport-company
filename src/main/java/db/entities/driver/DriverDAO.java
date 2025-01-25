@@ -1,13 +1,15 @@
 package db.entities.driver;
 
 import db.DBUtils;
+import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class DriverDAO {
-    public static void save(Driver driver) {
+public class DriverDAO implements IDAO<Driver> {
+    @Override
+    public void save(Driver driver) {
         Transaction transaction = null;
 
         try (Session session = DBUtils.getCurrentSession()) {
@@ -17,13 +19,15 @@ public class DriverDAO {
         }
     }
 
-    public static Driver getDriverById(Long id) {
+    @Override
+    public Driver getById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             return session.get(Driver.class, id);
         }
     }
 
-    public static List<Driver> getAllDrivers() {
+    @Override
+    public List<Driver> getAll() {
         Transaction transaction = null;
 
         List<Driver> companies;
@@ -37,7 +41,8 @@ public class DriverDAO {
         return companies;
     }
 
-    public static void updateDriver(Driver driver) {
+    @Override
+    public void update(Driver driver) {
         Transaction transaction = null;
 
         try (Session session = DBUtils.getCurrentSession()) {
@@ -47,7 +52,8 @@ public class DriverDAO {
         }
     }
 
-    public static void deleteDriverById(Long id) {
+    @Override
+    public void deleteById(Long id) {
         try (Session session = DBUtils.getCurrentSession()) {
             Driver driver = session.get(Driver.class, id);
             if (driver != null) {
@@ -55,4 +61,14 @@ public class DriverDAO {
             }
         }
     }
+
+    // Method for listing all drivers with their representative number of freights
+
+    // Method for listing all profits by individual drivers
+
+    // Filter drivers by qualification
+
+    // Sort drivers by salary
+
+    // Filter drivers by salary
 }

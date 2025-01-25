@@ -18,101 +18,92 @@ public class Company {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Driver> drivers;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Vehicle> vehicles;
 
-    @OneToMany(mappedBy = "company" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Freight> freights;
 
-    @ManyToMany(mappedBy = "companies", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "companies", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Client> clients;
 
     public Company() {
     }
 
-    public Company(String name, Set<Driver> drivers, Set<Vehicle> vehicles, Set<Freight> freights, Set<Client> clients) {
+    public Company(
+            String name,
+            Set<Driver> drivers,
+            Set<Vehicle> vehicles,
+            Set<Freight> freights,
+            Set<Client> clients
+    ) {
         this.name = name;
-        this.drivers = drivers != null ? this.setDriversCompany(drivers) : new HashSet<>();
-        this.vehicles = vehicles != null ? this.setVehiclesCompany(vehicles) : new HashSet<>();
-        this.freights = freights != null ? this.setFreightsCompany(freights) : new HashSet<>();
-        this.clients = clients != null ? this.setClientCompany(clients) : new HashSet<>();
+        this.drivers = drivers != null ? drivers : new HashSet<>();
+        this.vehicles = vehicles != null ? vehicles : new HashSet<>();
+        this.freights = freights != null ? freights : new HashSet<>();
+        this.clients = clients != null ? clients : new HashSet<>();
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<Driver> getDrivers() {
         return drivers;
     }
 
+    public void addDriver(Driver driver) {
+        this.drivers.add(driver);
+    }
+
+    public void setDrivers(Set<Driver> drivers) {
+        this.drivers = drivers;
+    }
+
     public Set<Vehicle> getVehicles() {
         return vehicles;
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicles.add(vehicle);
+    }
+
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     public Set<Freight> getFreights() {
         return freights;
     }
 
+    public void addFreight(Freight freight) {
+        this.freights.add(freight);
+    }
+
+    public void setFreights(Set<Freight> freights) {
+        this.freights = freights;
+    }
+
     public Set<Client> getClients() {
         return clients;
     }
 
-    private Set<Driver> setDriversCompany(Set<Driver> drivers) {
-        for(Driver driver : drivers) {
-            driver.setCompany(this);
-        }
-
-        return drivers;
+    public void addClient(Client client) {
+        this.clients.add(client);
     }
 
-    private Set<Freight> setFreightsCompany(Set<Freight> freights) {
-        for(Freight freight : freights) {
-            freight.setCompany(this);
-        }
-
-        return freights;
-    }
-
-    private Set<Vehicle> setVehiclesCompany(Set<Vehicle> vehicles) {
-        for(Vehicle vehicle : vehicles) {
-            vehicle.setCompany(this);
-        }
-
-        return vehicles;
-    }
-
-    private Set<Client> setClientCompany(Set<Client> clients) {
-        for(Client client : clients) {
-            client.setCompany(this);
-        }
-
-        return clients;
-    }
-
-    public void addDriver(Driver driver) {
-        if(this.drivers.add(driver)) {
-            driver.setCompany(this);
-        }
-    }
-
-    public boolean removeDriver(Driver driver) {
-        if(this.drivers.remove(driver)) {
-            driver.setCompany(null);
-            return true;
-        }
-
-        return false;
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 }
