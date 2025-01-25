@@ -2,6 +2,9 @@ package db.entities.freight;
 
 import db.entities.company.CompanyDTO;
 import db.entities.driver.DriverDTO;
+import exceptions.InvalidFreighException;
+
+import java.time.LocalDate;
 
 public class FreightDTO {
     private Long id;
@@ -14,9 +17,9 @@ public class FreightDTO {
 
     private String endLocation;
 
-    private java.util.Date startDate;
+    private LocalDate startDate;
 
-    private java.util.Date endDate;
+    private LocalDate endDate;
 
     private EFreightType type;
 
@@ -30,8 +33,8 @@ public class FreightDTO {
             CompanyDTO company,
             String startLocation,
             String endLocation,
-            java.util.Date startDate,
-            java.util.Date endDate,
+            LocalDate startDate,
+            LocalDate endDate,
             EFreightType type,
             Double cargoWeight,
             Double price
@@ -117,19 +120,19 @@ public class FreightDTO {
         this.endLocation = endLocation;
     }
 
-    public java.util.Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(java.util.Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public java.util.Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(java.util.Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -155,5 +158,15 @@ public class FreightDTO {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public void validateFreight() throws InvalidFreighException {
+        if(this.type == EFreightType.CARGO && this.cargoWeight == null) {
+            throw new InvalidFreighException("Cargo freights must have weight");
+        }
+
+        if(this.type == EFreightType.PEOPLE && this.cargoWeight != null) {
+            throw new InvalidFreighException("People freights must not have weight");
+        }
     }
 }

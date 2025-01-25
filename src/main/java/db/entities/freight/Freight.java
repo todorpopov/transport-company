@@ -2,7 +2,10 @@ package db.entities.freight;
 
 import db.entities.company.Company;
 import db.entities.driver.Driver;
+import exceptions.InvalidFreighException;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 
 @Entity
@@ -26,10 +29,10 @@ public class Freight {
     private String endLocation;
 
     @Column(name = "start_date", nullable = false)
-    private java.sql.Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date", nullable = false)
-    private java.sql.Date endDate;
+    private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -44,13 +47,23 @@ public class Freight {
     public Freight() {
     }
 
-    public Freight(Driver driver, Company company, String startLocation, String endLocation, java.util.Date startDate, java.util.Date endDate, EFreightType type, Double cargoWeight, Double price) {
+    public Freight(
+            Driver driver,
+            Company company,
+            String startLocation,
+            String endLocation,
+            LocalDate startDate,
+            LocalDate endDate,
+            EFreightType type,
+            Double cargoWeight,
+            Double price
+    ) {
         this.driver = driver;
         this.company = company;
         this.startLocation = startLocation;
         this.endLocation = endLocation;
-        this.startDate = new java.sql.Date(startDate.getTime());
-        this.endDate = new java.sql.Date(endDate.getTime());
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.type = type;
         this.cargoWeight = cargoWeight;
         this.price = price;
@@ -96,20 +109,20 @@ public class Freight {
         this.endLocation = endLocation;
     }
 
-    public java.util.Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(java.util.Date startDate) {
-        this.startDate = new java.sql.Date(startDate.getTime());
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public java.util.Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(java.util.Date endDate) {
-        this.endDate = new java.sql.Date(endDate.getTime());
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public EFreightType getType() {
@@ -134,5 +147,15 @@ public class Freight {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public void validateFreight() throws InvalidFreighException {
+        if(this.type == EFreightType.CARGO && this.cargoWeight == null) {
+            throw new InvalidFreighException("Cargo freights must have weight");
+        }
+
+        if(this.type == EFreightType.PEOPLE && this.cargoWeight != null) {
+            throw new InvalidFreighException("People freights must not have weight");
+        }
     }
 }

@@ -3,6 +3,7 @@ package db.entities.client;
 import db.entities.company.Company;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,12 @@ public class Client {
     @Column(nullable = false)
     private boolean debtor;
 
-    @ManyToMany(mappedBy = "clients")
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "client_company",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "company_id")
+    )
     private Set<Company> companies;
 
     public Client() {
@@ -26,7 +32,7 @@ public class Client {
     public Client(String name, boolean debtor, Set<Company> companies) {
         this.name = name;
         this.debtor = debtor;
-        this.companies = companies;
+        this.companies = companies != null ? companies : new HashSet<Company>();
     }
 
     public Long getId() {
@@ -41,23 +47,15 @@ public class Client {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isDebtor() {
         return debtor;
-    }
-
-    public void setDebtor(boolean debtor) {
-        this.debtor = debtor;
     }
 
     public Set<Company> getCompanies() {
         return companies;
     }
 
-    public void setCompanies(Set<Company> companies) {
-        this.companies = companies;
+    public void setCompany(Company company) {
+        this.companies.add(company);
     }
 }

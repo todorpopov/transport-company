@@ -1,6 +1,7 @@
 package db.entities.company;
 
 import db.DBUtils;
+import db.entities.driver.DriverDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -55,4 +56,14 @@ public class CompanyDAO {
             }
         }
     }
+
+    // Method for calculating the total profits from all freights of the company
+
+    // Method for getting the count of all freights
+
+    // Method for listing all drivers with their representative number of freights
+
+    // Method for filtering freights by start and end date and combining their profits
+
+    // Method for listing all profits by individual drivers
 }

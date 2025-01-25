@@ -11,13 +11,12 @@
         <property name="connection.password">java-test</property> <!-- DB Password -->
 
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property> <!-- DB Dialect -->
-        <property name="hbm2ddl.auto">update</property> <!-- create / create-drop / update -->
+        <property name="hbm2ddl.auto">create</property> <!-- create / create-drop / update -->
 
-        <property name="show_sql">true</property> <!-- Show SQL in console -->
-        <property name="format_sql">true</property> <!-- Show SQL formatted -->
+        <property name="show_sql">false</property> <!-- Show SQL in console -->
+        <property name="format_sql">false</property> <!-- Show SQL formatted -->
 
         <property name="hibernate.current_session_context_class">thread</property> <!-- Setup getCurrentSession for thread -->
-
 
         <mapping class="db.entities.company.Company"/>
         <mapping class="db.entities.driver.Driver"/>

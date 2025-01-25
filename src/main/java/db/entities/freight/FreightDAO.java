@@ -1,14 +1,17 @@
 package db.entities.freight;
 
 import db.DBUtils;
+import exceptions.InvalidFreighException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
 public class FreightDAO {
-    public static void save(Freight freight) {
+    public static void save(Freight freight) throws InvalidFreighException {
         Transaction transaction = null;
+
+        freight.validateFreight();
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
@@ -37,8 +40,10 @@ public class FreightDAO {
         return companies;
     }
 
-    public static void updateFreight(Freight freight) {
+    public static void updateFreight(Freight freight) throws InvalidFreighException {
         Transaction transaction = null;
+
+        freight.validateFreight();
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();

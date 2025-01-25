@@ -22,8 +22,8 @@ public class Driver {
     @OneToMany(mappedBy = "driver")
     private Set<Freight> freights;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "company_id")
     private Company company;
 
     @Column(nullable = false)
