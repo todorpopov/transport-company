@@ -18,13 +18,13 @@ public class Company {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Driver> drivers;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Vehicle> vehicles;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Freight> freights;
 
     @ManyToMany(mappedBy = "companies", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
