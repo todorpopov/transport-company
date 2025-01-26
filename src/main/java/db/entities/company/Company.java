@@ -19,18 +19,22 @@ public class Company {
     private String name;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private Set<Driver> drivers;
+    private Set<Driver> drivers = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private Set<Vehicle> vehicles;
+    private Set<Vehicle> vehicles = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private Set<Freight> freights;
+    private Set<Freight> freights = new HashSet<>();
 
     @ManyToMany(mappedBy = "companies", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private Set<Client> clients;
+    private Set<Client> clients = new HashSet<>();
 
     public Company() {
+    }
+
+    public Company(String name) {
+        this.name = name;
     }
 
     public Company(
@@ -41,14 +45,18 @@ public class Company {
             Set<Client> clients
     ) {
         this.name = name;
-        this.drivers = drivers != null ? drivers : new HashSet<>();
-        this.vehicles = vehicles != null ? vehicles : new HashSet<>();
-        this.freights = freights != null ? freights : new HashSet<>();
-        this.clients = clients != null ? clients : new HashSet<>();
+        this.drivers.addAll(drivers);
+        this.vehicles.addAll(vehicles);
+        this.freights.addAll(freights);
+        this.clients.addAll(clients);
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -63,20 +71,12 @@ public class Company {
         return drivers;
     }
 
-    public void addDriver(Driver driver) {
-        this.drivers.add(driver);
-    }
-
     public void setDrivers(Set<Driver> drivers) {
         this.drivers = drivers;
     }
 
     public Set<Vehicle> getVehicles() {
         return vehicles;
-    }
-
-    public void addVehicle(Vehicle vehicle) {
-        this.vehicles.add(vehicle);
     }
 
     public void setVehicles(Set<Vehicle> vehicles) {
@@ -87,10 +87,6 @@ public class Company {
         return freights;
     }
 
-    public void addFreight(Freight freight) {
-        this.freights.add(freight);
-    }
-
     public void setFreights(Set<Freight> freights) {
         this.freights = freights;
     }
@@ -99,11 +95,11 @@ public class Company {
         return clients;
     }
 
-    public void addClient(Client client) {
-        this.clients.add(client);
-    }
-
     public void setClients(Set<Client> clients) {
         this.clients = clients;
+    }
+
+    public void addClient(Client client) {
+        clients.add(client);
     }
 }

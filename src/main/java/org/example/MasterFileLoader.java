@@ -1,8 +1,7 @@
 package org.example;
 
-import db.entities.freight.FreightDAO;
-import db.entities.freight.FreightDTO;
 import db.entities.freight.FreightService;
+import db.entities.freight.dtos.FreightDTO;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -12,7 +11,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,7 +37,7 @@ public class MasterFileLoader {
         Element root = document.createElement("freights");
         document.appendChild(root);
 
-        List<FreightDTO> freightDtos= freightService.getAll();
+        List<FreightDTO> freightDtos = freightService.getAll();
         for (FreightDTO freightDTO : freightDtos) {
             Element freightElement = document.createElement("freight");
 

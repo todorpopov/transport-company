@@ -1,11 +1,14 @@
 package db.entities.client;
 
+import db.entities.client.dtos.ClientDTO;
+import db.entities.client.dtos.ClientMapper;
+import db.entities.client.dtos.CreateClientDTO;
 import db.interfaces.IService;
 import org.example.Utils;
 
 import java.util.List;
 
-public class ClientService implements IService<ClientDTO> {
+public class ClientService implements IService<ClientDTO, CreateClientDTO> {
     private final ClientDAO clientDao;
 
     public ClientService(ClientDAO clientDAO) {
@@ -13,28 +16,28 @@ public class ClientService implements IService<ClientDTO> {
     }
 
     @Override
-    public void saveOne(ClientDTO clientDto) {
-        Client clientEntity = ClientDTO.toEntity(clientDto);
+    public void saveOne(CreateClientDTO createClientDto) {
+        Client clientEntity = ClientMapper.toEntityFromCreateDTO(createClientDto);
         this.clientDao.save(clientEntity);
     }
 
     @Override
     public ClientDTO getOne(Long id) {
         Client clientEntity = this.clientDao.getById(id);
-        return ClientDTO.toDTO(clientEntity);
+        return ClientMapper.toDTO(clientEntity);
     }
 
     @Override
     public List<ClientDTO> getAll() {
         List<Client> clientEntities = this.clientDao.getAll();
         return Utils.streamCheck(clientEntities)
-                .map(ClientDTO::toDTO)
+                .map(ClientMapper::toDTO)
                 .toList();
     }
 
     @Override
-    public void updateOne(ClientDTO clientDto) {
-        Client clientEntity = ClientDTO.toEntity(clientDto);
+    public void updateOne(CreateClientDTO clientDto) {
+        Client clientEntity = ClientMapper.toEntityFromCreateDTO(clientDto);
         this.clientDao.update(clientEntity);
     }
 

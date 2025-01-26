@@ -29,8 +29,16 @@ public class Vehicle {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public EVehicleType getType() {
         return type;
+    }
+
+    public void setType(EVehicleType type) {
+        this.type = type;
     }
 
     public Company getCompany() {

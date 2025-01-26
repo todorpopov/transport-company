@@ -24,19 +24,22 @@ public class Client {
             joinColumns = @JoinColumn(name = "client_id"),
             inverseJoinColumns = @JoinColumn(name = "company_id")
     )
-    private Set<Company> companies;
+    private Set<Company> companies = new HashSet<>();
 
     public Client() {
     }
 
-    public Client(String name, boolean debtor, Set<Company> companies) {
+    public Client(String name, boolean debtor) {
         this.name = name;
         this.debtor = debtor;
-        this.companies = companies != null ? companies : new HashSet<>();
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -59,11 +62,11 @@ public class Client {
         return companies;
     }
 
-    public void addCompany(Company company) {
-        this.companies.add(company);
-    }
-
     public void setCompanies(Set<Company> companies) {
         this.companies = companies;
+    }
+
+    public void addCompany(Company company) {
+        this.companies.add(company);
     }
 }

@@ -4,7 +4,6 @@ import db.entities.company.Company;
 import db.entities.freight.Freight;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -33,44 +32,27 @@ public class Driver {
     public Driver() {
     }
 
+    public Driver(Double salary, String name, EDriverQualification qualification, Company company) {
+        this.salary = salary;
+        this.name = name;
+        this.qualification = qualification;
+        this.company = company;
+    }
+
     public Driver(String name, EDriverQualification qualification, Set<Freight> freights, Company company, Double salary) {
         this.name = name;
         this.qualification = qualification;
-        this.freights = freights != null ? freights : new HashSet<Freight>();
+        this.freights = freights;
         this.company = company;
         this.salary = salary;
     }
 
-    public Long getId() {
-        return id;
+    public Double getSalary() {
+        return salary;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public EDriverQualification getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(EDriverQualification qualification) {
-        this.qualification = qualification;
-    }
-
-    public Set<Freight> getFreights() {
-        return freights;
-    }
-
-    public void addFreight(Freight freight) {
-        this.freights.add(freight);
-    }
-
-    public void setFreights(Set<Freight> freights) {
-        this.freights = freights;
+    public void setSalary(Double salary) {
+        this.salary = salary;
     }
 
     public Company getCompany() {
@@ -81,11 +63,35 @@ public class Driver {
         this.company = company;
     }
 
-    public Double getSalary() {
-        return salary;
+    public Set<Freight> getFreights() {
+        return freights;
     }
 
-    public void setSalary(Double salary) {
-        this.salary = salary;
+    public void setFreights(Set<Freight> freights) {
+        this.freights = freights;
+    }
+
+    public EDriverQualification getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(EDriverQualification qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
