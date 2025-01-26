@@ -1,12 +1,13 @@
 package db.entities.driver;
 
 import db.DBUtils;
-import db.entities.vehicle.Vehicle;
 import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Map;
 
 public class DriverDAO implements IDAO<Driver> {
     private static DriverDAO instance;
@@ -86,13 +87,72 @@ public class DriverDAO implements IDAO<Driver> {
         }
     }
 
-    // Filter by qualification
+    public List<Driver> filterByQualification(EDriverQualification qualification) {
+        Transaction transaction = null;
 
-    // Sort by salary
+        List<Driver> result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
 
-    // Filter by salary
+            String hql = "from Driver where qualification = :qualification";
+            Query<Driver> query = session.createQuery(hql, Driver.class);
+            query.setParameter("qualification", qualification);
+            result = query.list();
 
-    // Map of all drivers with their representative number of freights
+            transaction.commit();
+        }
+
+        return result;
+    }
+
+    public List<Driver> sortBySalary() {
+        Transaction transaction = null;
+
+        List<Driver> result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            result = session.createQuery("from Driver order by salary desc", Driver.class).getResultList();
+            transaction.commit();
+        }
+
+        return result;
+    }
+
+    public List<Driver> filterBySalary(Double lowerBoundIncluded, Double upperBoundIncluded) {
+        Transaction transaction = null;
+
+        List<Driver> result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "from Driver where salary >= :lowerBoundIncluded and salary <= :upperBoundIncluded";
+            Query<Driver> query = session.createQuery(hql, Driver.class);
+            query.setParameter("lowerBoundIncluded", lowerBoundIncluded);
+            query.setParameter("upperBoundIncluded", upperBoundIncluded);
+            result = query.list();
+
+            transaction.commit();
+        }
+
+        return result;
+    }
+
+    public Map<Driver, Long> mapDriversByNumberOfFreights() {
+        Transaction transaction = null;
+
+        Map<Driver, Long> result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "";
+            Query<Driver, Long> query = session.createQuery(hql, Driver.class);
+            result = query.list();
+
+            transaction.commit();
+        }
+
+        return result;
+    }
 
     // All profits a driver has brought in to the company
 }

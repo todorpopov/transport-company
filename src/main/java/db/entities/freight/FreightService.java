@@ -95,11 +95,11 @@ public class FreightService implements IService<FreightDTO, CreateFreightDTO> {
     }
 
     public List<FreightDTO> getAllFreightsSorted() {
-        List<Freight> clientEntities = this.freightDao.getAllFreightsSorted();
-        return Utils.streamCheck(clientEntities)
-                .map(dto -> {
+        List<Freight> freightEntities = this.freightDao.getAllFreightsSorted();
+        return Utils.streamCheck(freightEntities)
+                .map(freight -> {
                     try {
-                        return FreightMapper.toDTO(dto);
+                        return FreightMapper.toDTO(freight);
                     } catch (InvalidFreighException e) {
                         System.out.println(e.getMessage());
                         return null;
@@ -109,11 +109,11 @@ public class FreightService implements IService<FreightDTO, CreateFreightDTO> {
     }
 
     public List<FreightDTO> filterByLocation(String keyword) {
-        List<Freight> clientEntities = this.freightDao.filterByLocation(keyword);
-        return Utils.streamCheck(clientEntities)
-                .map(dto -> {
+        List<Freight> freightEntities = this.freightDao.filterByLocation(keyword);
+        return Utils.streamCheck(freightEntities)
+                .map(freight -> {
                     try {
-                        return FreightMapper.toDTO(dto);
+                        return FreightMapper.toDTO(freight);
                     } catch (InvalidFreighException e) {
                         System.out.println(e.getMessage());
                         return null;

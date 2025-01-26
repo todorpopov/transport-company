@@ -114,7 +114,7 @@ public class CompanyFreigthDTO {
         return profit;
     }
 
-    public void setprofit(Double profit) {
+    public void setProfit(Double profit) {
         this.profit = profit;
     }
 }

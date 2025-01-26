@@ -4,6 +4,7 @@ import db.entities.company.Company;
 import db.entities.freight.Freight;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,8 +20,8 @@ public class Driver {
     @Column(nullable = false)
     private EDriverQualification qualification;
 
-    @OneToMany(mappedBy = "driver", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private Set<Freight> freights;
+    @OneToMany(mappedBy = "driver", fetch = FetchType.EAGER)
+    private Set<Freight> freights = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "company_id")

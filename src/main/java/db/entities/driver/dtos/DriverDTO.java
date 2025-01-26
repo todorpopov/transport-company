@@ -41,4 +41,15 @@ public class DriverDTO extends AbstractDriverDTO {
     public void setFreights(Set<DriverFreightDTO> freights) {
         this.freights = freights;
     }
+
+    @Override
+    public String toString() {
+        return "DriverDTO{" +
+                "id=" + id +
+                ", name='" + this.getName() + '\'' +
+                ", qualification='" + this.getQualification().toString() + '\'' +
+                ", salary='" + this.getSalary() + '\'' +
+                ", companyName='" + companyName + '\'' +
+                '}';
+    }
 }

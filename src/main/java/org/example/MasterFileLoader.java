@@ -98,7 +98,7 @@ public class MasterFileLoader {
         StreamResult result = new StreamResult(filePath);
         transformer.transform(source, result);
 
-        System.out.printf("Freights successfully exported to XML at: %s", filePath);
+        System.out.printf("\nFreights successfully exported to XML at: %s", filePath);
     }
 
 }

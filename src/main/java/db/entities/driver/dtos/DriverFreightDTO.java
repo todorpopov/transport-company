@@ -103,7 +103,22 @@ public class DriverFreightDTO {
         return profit;
     }
 
-    public void setprofit(Double profit) {
+    public void setProfit(Double profit) {
         this.profit = profit;
+    }
+
+    @Override
+    public String toString() {
+        return "Freight{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", startLocation='" + startLocation + '\'' +
+                ", endLocation='" + endLocation + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", type=" + type +
+                ", cargoWeight=" + cargoWeight +
+                ", profit=" + profit +
+                '}';
     }
 }

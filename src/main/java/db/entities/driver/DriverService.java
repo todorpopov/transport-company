@@ -4,7 +4,10 @@ package db.entities.driver;
 import db.entities.driver.dtos.CreateDriverDTO;
 import db.entities.driver.dtos.DriverDTO;
 import db.entities.driver.dtos.DriverMapper;
+import db.entities.freight.Freight;
+import db.entities.freight.dtos.FreightMapper;
 import db.interfaces.IService;
+import exceptions.InvalidFreighException;
 import org.example.Utils;
 
 import java.util.List;
@@ -71,5 +74,26 @@ public class DriverService implements IService<DriverDTO, CreateDriverDTO> {
     @Override
     public void deleteOne(Long id) {
         this.driverDao.deleteById(id);
+    }
+
+    public List<DriverDTO> filterByQualification(EDriverQualification qualification) {
+        List<Driver> driverEntities = this.driverDao.filterByQualification(qualification);
+        return Utils.streamCheck(driverEntities)
+                .map(DriverMapper::toDTO)
+                .toList();
+    }
+
+    public List<DriverDTO> sortBySalary() {
+        List<Driver> driverEntities = this.driverDao.sortBySalary();
+        return Utils.streamCheck(driverEntities)
+                .map(DriverMapper::toDTO)
+                .toList();
+    }
+
+    public List<DriverDTO> filterBySalary(Double lowerBoundInclusive, Double upperBoundInclusive) {
+        List<Driver> driverEntities = this.driverDao.filterBySalary(lowerBoundInclusive, upperBoundInclusive);
+        return Utils.streamCheck(driverEntities)
+                .map(DriverMapper::toDTO)
+                .toList();
     }
 }
