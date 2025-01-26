@@ -9,10 +9,20 @@ import org.example.Utils;
 import java.util.List;
 
 public class CompanyService implements IService<CompanyDTO, CreateCompanyDTO> {
+    private static CompanyService instance;
+
     private final CompanyDAO companyDao;
 
-    public CompanyService(CompanyDAO companyDAO) {
-        this.companyDao = companyDAO;
+    private CompanyService() {
+        this.companyDao = CompanyDAO.getInstance();
+    }
+
+    public static CompanyService getInstance() {
+        if (instance == null) {
+            instance = new CompanyService();
+        }
+
+        return instance;
     }
 
     @Override

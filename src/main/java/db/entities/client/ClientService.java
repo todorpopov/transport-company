@@ -9,10 +9,20 @@ import org.example.Utils;
 import java.util.List;
 
 public class ClientService implements IService<ClientDTO, CreateClientDTO> {
+    private static ClientService instance;
+
     private final ClientDAO clientDao;
 
-    public ClientService(ClientDAO clientDAO) {
-        this.clientDao = clientDAO;
+    private ClientService() {
+        this.clientDao = ClientDAO.getInstance();
+    }
+
+    public static ClientService getInstance() {
+        if (instance == null) {
+            instance = new ClientService();
+        }
+
+        return instance;
     }
 
     @Override

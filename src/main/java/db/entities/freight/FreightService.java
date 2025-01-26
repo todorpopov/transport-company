@@ -10,10 +10,20 @@ import org.example.Utils;
 import java.util.List;
 
 public class FreightService implements IService<FreightDTO, CreateFreightDTO> {
+    private static FreightService instance;
+
     private final FreightDAO freightDao;
 
-    public FreightService(FreightDAO freightDao) {
-        this.freightDao = freightDao;
+    private FreightService() {
+        this.freightDao = FreightDAO.getInstance();
+    }
+
+    public static FreightService getInstance() {
+        if (instance == null) {
+            instance = new FreightService();
+        }
+
+        return instance;
     }
 
     @Override

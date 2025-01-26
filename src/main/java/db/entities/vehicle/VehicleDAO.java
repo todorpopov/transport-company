@@ -8,6 +8,19 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class VehicleDAO implements IDAO<Vehicle> {
+    private static VehicleDAO instance;
+
+    private VehicleDAO() {
+    }
+
+    public static VehicleDAO getInstance() {
+        if (instance == null) {
+            instance = new VehicleDAO();
+        }
+
+        return instance;
+    }
+
     @Override
     public void save(Vehicle vehicle) {
         Transaction transaction = null;

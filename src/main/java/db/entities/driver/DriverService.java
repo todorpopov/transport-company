@@ -10,10 +10,20 @@ import org.example.Utils;
 import java.util.List;
 
 public class DriverService implements IService<DriverDTO, CreateDriverDTO> {
+    private static DriverService instance;
+
     private final DriverDAO driverDao;
 
-    public DriverService(DriverDAO driverDao) {
-        this.driverDao = driverDao;
+    private DriverService() {
+        this.driverDao = DriverDAO.getInstance();
+    }
+
+    public static DriverService getInstance() {
+        if (instance == null) {
+            instance = new DriverService();
+        }
+
+        return instance;
     }
 
     @Override

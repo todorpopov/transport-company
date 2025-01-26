@@ -8,6 +8,19 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class ClientDAO implements IDAO<Client> {
+    private static ClientDAO instance;
+
+    private ClientDAO() {
+    }
+
+    public static ClientDAO getInstance() {
+        if (instance == null) {
+            instance = new ClientDAO();
+        }
+
+        return instance;
+    }
+
     @Override
     public void save(Client client) {
         Transaction transaction = null;

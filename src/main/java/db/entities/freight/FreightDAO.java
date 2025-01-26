@@ -8,6 +8,19 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class FreightDAO implements IDAO<Freight> {
+    private static FreightDAO instance;
+
+    private FreightDAO() {
+    }
+
+    public static FreightDAO getInstance() {
+        if (instance == null) {
+            instance = new FreightDAO();
+        }
+
+        return instance;
+    }
+
     @Override
     public void save(Freight freight) {
         Transaction transaction = null;

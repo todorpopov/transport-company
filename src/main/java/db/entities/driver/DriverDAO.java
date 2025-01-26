@@ -8,6 +8,19 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class DriverDAO implements IDAO<Driver> {
+    private static DriverDAO instance;
+
+    private DriverDAO() {
+    }
+
+    public static DriverDAO getInstance() {
+        if (instance == null) {
+            instance = new DriverDAO();
+        }
+
+        return instance;
+    }
+
     @Override
     public void save(Driver driver) {
         Transaction transaction = null;

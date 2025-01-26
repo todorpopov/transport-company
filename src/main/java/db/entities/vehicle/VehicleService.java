@@ -9,10 +9,20 @@ import org.example.Utils;
 import java.util.List;
 
 public class VehicleService implements IService<VehicleDTO, CreateVehicleDTO> {
+    private static VehicleService instance;
+
     private final VehicleDAO vehicleDao;
 
-    public VehicleService(VehicleDAO vehicleDao) {
-        this.vehicleDao = vehicleDao;
+    private VehicleService() {
+        this.vehicleDao = VehicleDAO.getInstance();
+    }
+
+    public static VehicleService getInstance() {
+        if (instance == null) {
+            instance = new VehicleService();
+        }
+
+        return instance;
     }
 
     @Override
