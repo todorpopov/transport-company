@@ -31,10 +31,18 @@ public class ClientService implements IService<ClientDTO, CreateClientDTO> {
         this.clientDao.save(clientEntity);
     }
 
+    public void saveOneEntity(Client clientEntity) {
+        this.clientDao.save(clientEntity);
+    }
+
     @Override
     public ClientDTO getOne(Long id) {
         Client clientEntity = this.clientDao.getById(id);
         return ClientMapper.toDTO(clientEntity);
+    }
+
+    public Client getOneEntity(Long id) {
+        return this.clientDao.getById(id);
     }
 
     @Override
@@ -45,9 +53,17 @@ public class ClientService implements IService<ClientDTO, CreateClientDTO> {
                 .toList();
     }
 
+    public List<Client> getAllEntities() {
+        return this.clientDao.getAll();
+    }
+
     @Override
     public void updateOne(CreateClientDTO clientDto) {
         Client clientEntity = ClientMapper.toEntityFromCreateDTO(clientDto);
+        this.clientDao.update(clientEntity);
+    }
+
+    public void updateOneEntity(Client clientEntity) {
         this.clientDao.update(clientEntity);
     }
 

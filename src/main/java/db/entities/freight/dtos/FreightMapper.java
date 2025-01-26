@@ -14,7 +14,7 @@ public class FreightMapper {
                 entity.getEndDate(),
                 entity.getType(),
                 entity.getCargoWeight(),
-                entity.getPrice(),
+                entity.getProfit(),
                 entity.getId(),
                 entity.getCompany().getName(),
                 entity.getDriver().getName()
@@ -32,7 +32,7 @@ public class FreightMapper {
                 entity.getEndDate(),
                 entity.getType(),
                 entity.getCargoWeight(),
-                entity.getPrice()
+                entity.getProfit()
         );
     }
 
@@ -47,7 +47,7 @@ public class FreightMapper {
                     createFreightDto.getEndDate(),
                     createFreightDto.getType(),
                     createFreightDto.getCargoWeight(),
-                    createFreightDto.getPrice()
+                    createFreightDto.getProfit()
             );
         } catch (InvalidFreighException e) {
             return null;
@@ -65,7 +65,7 @@ public class FreightMapper {
                 freight.getEndDate(),
                 freight.getType(),
                 freight.getCargoWeight(),
-                freight.getPrice()
+                freight.getProfit()
         );
     }
 }

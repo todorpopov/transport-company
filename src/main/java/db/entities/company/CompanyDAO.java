@@ -1,6 +1,7 @@
 package db.entities.company;
 
 import db.DBUtils;
+import db.entities.vehicle.Vehicle;
 import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -27,7 +28,7 @@ public class CompanyDAO implements IDAO<Company> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.persist(company);
+            session.save(company);
             transaction.commit();
         }
     }
@@ -65,24 +66,29 @@ public class CompanyDAO implements IDAO<Company> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.merge(company);
+            session.saveOrUpdate(company);
             transaction.commit();
         }
     }
 
     @Override
     public void deleteById(Long id) {
+        Transaction transaction = null;
+
+        Company company;
         try (Session session = DBUtils.getCurrentSession()) {
-            Company company = session.get(Company.class, id);
-            if (company != null) {
-                session.remove(company);
-            }
+            transaction = session.beginTransaction();
+            company = session.get(Company.class, id);
+            session.delete(company);
+            transaction.commit();
         }
     }
 
-    // Sort companies by name
+    // Sort by name
 
-    // Sort companies by profits
+    // Sort by profits
 
-    // Filter companies by profits
+    // Filter by profits
+
+    // All profits for a range of dates
 }

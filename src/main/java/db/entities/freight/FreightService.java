@@ -28,20 +28,28 @@ public class FreightService implements IService<FreightDTO, CreateFreightDTO> {
 
     @Override
     public void saveOne(CreateFreightDTO createFreightDto) {
-        Freight clientEntity = FreightMapper.toEntityFromCreateDTO(createFreightDto);
-        this.freightDao.save(clientEntity);
+        Freight freightsEntity = FreightMapper.toEntityFromCreateDTO(createFreightDto);
+        this.freightDao.save(freightsEntity);
+    }
+
+    public void saveOneEntity(Freight freightsEntity) {
+        this.freightDao.save(freightsEntity);
     }
 
     @Override
     public FreightDTO getOne(Long id) {
-        Freight clientEntity = this.freightDao.getById(id);
+        Freight freightsEntity = this.freightDao.getById(id);
         try {
-            return FreightMapper.toDTO(clientEntity);
+            return FreightMapper.toDTO(freightsEntity);
 
         } catch (InvalidFreighException e) {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public Freight getOneEntity(Long id) {
+        return this.freightDao.getById(id);
     }
 
     @Override
@@ -59,14 +67,58 @@ public class FreightService implements IService<FreightDTO, CreateFreightDTO> {
                 .toList();
     }
 
+    public List<Freight> getAllEntities() {
+        return this.freightDao.getAll();
+    }
+
     @Override
     public void updateOne(CreateFreightDTO createFreightDto) {
-        Freight clientEntity = FreightMapper.toEntityFromCreateDTO(createFreightDto);
-        this.freightDao.update(clientEntity);
+        Freight freightsEntity = FreightMapper.toEntityFromCreateDTO(createFreightDto);
+        this.freightDao.update(freightsEntity);
+    }
+
+    public void updateOneEntity(Freight freightsEntity) {
+        this.freightDao.update(freightsEntity);
     }
 
     @Override
     public void deleteOne(Long id) {
         this.freightDao.deleteById(id);
+    }
+
+    public Long getNumberOfFreights() {
+        return this.freightDao.getNumberOfFreights();
+    }
+
+    public Double getTotalFreightProfits() {
+        return this.freightDao.getTotalProfits();
+    }
+
+    public List<FreightDTO> getAllFreightsSorted() {
+        List<Freight> clientEntities = this.freightDao.getAllFreightsSorted();
+        return Utils.streamCheck(clientEntities)
+                .map(dto -> {
+                    try {
+                        return FreightMapper.toDTO(dto);
+                    } catch (InvalidFreighException e) {
+                        System.out.println(e.getMessage());
+                        return null;
+                    }
+                })
+                .toList();
+    }
+
+    public List<FreightDTO> filterByLocation(String keyword) {
+        List<Freight> clientEntities = this.freightDao.filterByLocation(keyword);
+        return Utils.streamCheck(clientEntities)
+                .map(dto -> {
+                    try {
+                        return FreightMapper.toDTO(dto);
+                    } catch (InvalidFreighException e) {
+                        System.out.println(e.getMessage());
+                        return null;
+                    }
+                })
+                .toList();
     }
 }

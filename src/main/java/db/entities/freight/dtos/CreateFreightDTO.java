@@ -12,8 +12,8 @@ public class CreateFreightDTO extends AbstractFreightDTO {
 
     private Company company;
 
-    public CreateFreightDTO(String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, EFreightType type, Double cargoWeight, Double price, Driver driver, Company company) throws InvalidFreighException {
-        super(startLocation, endLocation, startDate, endDate, type, cargoWeight, price);
+    public CreateFreightDTO(String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, EFreightType type, Double cargoWeight, Double profit, Driver driver, Company company) throws InvalidFreighException {
+        super(startLocation, endLocation, startDate, endDate, type, cargoWeight, profit);
         this.driver = driver;
         this.company = company;
     }

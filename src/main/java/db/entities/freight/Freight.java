@@ -14,11 +14,11 @@ public class Freight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "driver_id", nullable = false)
     private Driver driver;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
@@ -42,7 +42,7 @@ public class Freight {
     private Double cargoWeight;
 
     @Column(nullable = false)
-    private Double price;
+    private Double profit;
 
     public Freight() {
     }
@@ -56,7 +56,7 @@ public class Freight {
             LocalDate endDate,
             EFreightType type,
             Double cargoWeight,
-            Double price
+            Double profit
     ) throws InvalidFreighException {
         if (type == EFreightType.CARGO && cargoWeight == null) {
             throw new InvalidFreighException("Cargo freights must have weight");
@@ -74,7 +74,7 @@ public class Freight {
         this.endDate = endDate;
         this.type = type;
         this.cargoWeight = cargoWeight;
-        this.price = price;
+        this.profit = profit;
     }
 
     public Long getId() {
@@ -113,7 +113,7 @@ public class Freight {
         return cargoWeight;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getProfit() {
+        return profit;
     }
 }

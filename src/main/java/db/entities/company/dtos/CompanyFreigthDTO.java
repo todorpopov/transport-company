@@ -23,9 +23,9 @@ public class CompanyFreigthDTO {
 
     private Double cargoWeight;
 
-    private Double price;
+    private Double profit;
 
-    public CompanyFreigthDTO(Long id, Long driverId, String driverName, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, EFreightType type, Double cargoWeight, Double price) {
+    public CompanyFreigthDTO(Long id, Long driverId, String driverName, String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, EFreightType type, Double cargoWeight, Double profit) {
         this.id = id;
         this.driverId = driverId;
         this.driverName = driverName;
@@ -35,7 +35,7 @@ public class CompanyFreigthDTO {
         this.endDate = endDate;
         this.type = type;
         this.cargoWeight = cargoWeight;
-        this.price = price;
+        this.profit = profit;
     }
 
     public Long getId() {
@@ -110,11 +110,11 @@ public class CompanyFreigthDTO {
         this.cargoWeight = cargoWeight;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getProfit() {
+        return profit;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setprofit(Double profit) {
+        this.profit = profit;
     }
 }

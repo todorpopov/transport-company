@@ -27,14 +27,22 @@ public class CompanyService implements IService<CompanyDTO, CreateCompanyDTO> {
 
     @Override
     public void saveOne(CreateCompanyDTO createCompanyDto) {
-        Company clientEntity = CompanyMapper.toEntityFromCreateDTO(createCompanyDto);
-        this.companyDao.save(clientEntity);
+        Company company = CompanyMapper.toEntityFromCreateDTO(createCompanyDto);
+        this.companyDao.save(company);
+    }
+
+    public void saveOneEntity(Company companyEntity) {
+        this.companyDao.save(companyEntity);
     }
 
     @Override
     public CompanyDTO getOne(Long id) {
-        Company clientEntity = this.companyDao.getById(id);
-        return CompanyMapper.toDTO(clientEntity);
+        Company company = this.companyDao.getById(id);
+        return CompanyMapper.toDTO(company);
+    }
+
+    public Company getOneEntity(Long id) {
+        return this.companyDao.getById(id);
     }
 
     @Override
@@ -45,10 +53,18 @@ public class CompanyService implements IService<CompanyDTO, CreateCompanyDTO> {
                 .toList();
     }
 
+    public List<Company> getAllEntities() {
+        return this.companyDao.getAll();
+    }
+
     @Override
     public void updateOne(CreateCompanyDTO createCompanyDto) {
-        Company clientEntity = CompanyMapper.toEntityFromCreateDTO(createCompanyDto);
-        this.companyDao.update(clientEntity);
+        Company company = CompanyMapper.toEntityFromCreateDTO(createCompanyDto);
+        this.companyDao.update(company);
+    }
+
+    public void updateOneEntity(Company companyEntity) {
+        this.companyDao.update(companyEntity);
     }
 
     @Override

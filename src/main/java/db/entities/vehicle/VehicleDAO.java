@@ -1,6 +1,7 @@
 package db.entities.vehicle;
 
 import db.DBUtils;
+import db.entities.freight.Freight;
 import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -27,16 +28,23 @@ public class VehicleDAO implements IDAO<Vehicle> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.persist(vehicle);
+            session.save(vehicle);
             transaction.commit();
         }
     }
 
     @Override
     public Vehicle getById(Long id) {
+        Transaction transaction = null;
+
+        Vehicle vehicle;
         try (Session session = DBUtils.getCurrentSession()) {
-            return session.get(Vehicle.class, id);
+            transaction = session.beginTransaction();
+            vehicle = session.get(Vehicle.class, id);
+            transaction.commit();
         }
+
+        return vehicle;
     }
 
     @Override
@@ -60,18 +68,21 @@ public class VehicleDAO implements IDAO<Vehicle> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.merge(vehicle);
+            session.saveOrUpdate(vehicle);
             transaction.commit();
         }
     }
 
     @Override
     public void deleteById(Long id) {
+        Transaction transaction = null;
+
+        Vehicle vehicle;
         try (Session session = DBUtils.getCurrentSession()) {
-            Vehicle vehicle = session.get(Vehicle.class, id);
-            if (vehicle != null) {
-                session.remove(vehicle);
-            }
+            transaction = session.beginTransaction();
+            vehicle = session.get(Vehicle.class, id);
+            session.delete(vehicle);
+            transaction.commit();
         }
     }
 }

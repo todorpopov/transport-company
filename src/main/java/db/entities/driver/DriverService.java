@@ -28,14 +28,22 @@ public class DriverService implements IService<DriverDTO, CreateDriverDTO> {
 
     @Override
     public void saveOne(CreateDriverDTO createDriverDto) {
-        Driver clientEntity = DriverMapper.toEntityFromCreateDTO(createDriverDto);
-        this.driverDao.save(clientEntity);
+        Driver driverEntity = DriverMapper.toEntityFromCreateDTO(createDriverDto);
+        this.driverDao.save(driverEntity);
+    }
+
+    public void saveOneEntity(Driver driverEntity) {
+        this.driverDao.save(driverEntity);
     }
 
     @Override
     public DriverDTO getOne(Long id) {
-        Driver clientEntity = this.driverDao.getById(id);
-        return DriverMapper.toDTO(clientEntity);
+        Driver driverEntity = this.driverDao.getById(id);
+        return DriverMapper.toDTO(driverEntity);
+    }
+
+    public Driver getOneEntity(Long id) {
+        return this.driverDao.getById(id);
     }
 
     @Override
@@ -46,10 +54,18 @@ public class DriverService implements IService<DriverDTO, CreateDriverDTO> {
                 .toList();
     }
 
+    public List<Driver> getAllEntities() {
+        return this.driverDao.getAll();
+    }
+
     @Override
     public void updateOne(CreateDriverDTO createDriverDto) {
-        Driver clientEntity = DriverMapper.toEntityFromCreateDTO(createDriverDto);
-        this.driverDao.update(clientEntity);
+        Driver driverEntity = DriverMapper.toEntityFromCreateDTO(createDriverDto);
+        this.driverDao.update(driverEntity);
+    }
+
+    public void updateOneEntity(Driver driverEntity) {
+        this.driverDao.update(driverEntity);
     }
 
     @Override

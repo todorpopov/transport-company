@@ -1,6 +1,7 @@
 package db.entities.client;
 
 import db.DBUtils;
+import db.entities.vehicle.Vehicle;
 import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -27,16 +28,23 @@ public class ClientDAO implements IDAO<Client> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.persist(client);
+            session.save(client);
             transaction.commit();
         }
     }
 
     @Override
     public Client getById(Long id) {
+        Transaction transaction = null;
+
+        Client client;
         try (Session session = DBUtils.getCurrentSession()) {
-            return session.get(Client.class, id);
+            transaction = session.beginTransaction();
+            client = session.get(Client.class, id);
+            transaction.commit();
         }
+
+        return client;
     }
 
     @Override
@@ -60,18 +68,21 @@ public class ClientDAO implements IDAO<Client> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.merge(client);
+            session.saveOrUpdate(client);
             transaction.commit();
         }
     }
 
     @Override
     public void deleteById(Long id) {
+        Transaction transaction = null;
+
+        Client client;
         try (Session session = DBUtils.getCurrentSession()) {
-            Client client = session.get(Client.class, id);
-            if (client != null) {
-                session.remove(client);
-            }
+            transaction = session.beginTransaction();
+            client = session.get(Client.class, id);
+            session.delete(client);
+            transaction.commit();
         }
     }
 }

@@ -1,6 +1,7 @@
 package db.entities.driver;
 
 import db.DBUtils;
+import db.entities.vehicle.Vehicle;
 import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -27,16 +28,23 @@ public class DriverDAO implements IDAO<Driver> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.persist(driver);
+            session.save(driver);
             transaction.commit();
         }
     }
 
     @Override
     public Driver getById(Long id) {
+        Transaction transaction = null;
+
+        Driver driver;
         try (Session session = DBUtils.getCurrentSession()) {
-            return session.get(Driver.class, id);
+            transaction = session.beginTransaction();
+            driver = session.get(Driver.class, id);
+            transaction.commit();
         }
+
+        return driver;
     }
 
     @Override
@@ -60,28 +68,31 @@ public class DriverDAO implements IDAO<Driver> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.merge(driver);
+            session.saveOrUpdate(driver);
             transaction.commit();
         }
     }
 
     @Override
     public void deleteById(Long id) {
+        Transaction transaction = null;
+
+        Driver driver;
         try (Session session = DBUtils.getCurrentSession()) {
-            Driver driver = session.get(Driver.class, id);
-            if (driver != null) {
-                session.remove(driver);
-            }
+            transaction = session.beginTransaction();
+            driver = session.get(Driver.class, id);
+            session.delete(driver);
+            transaction.commit();
         }
     }
 
-    // Method for listing all drivers with their representative number of freights
+    // Filter by qualification
 
-    // Method for listing all profits by individual drivers
+    // Sort by salary
 
-    // Filter drivers by qualification
+    // Filter by salary
 
-    // Sort drivers by salary
+    // Map of all drivers with their representative number of freights
 
-    // Filter drivers by salary
+    // All profits a driver has brought in to the company
 }

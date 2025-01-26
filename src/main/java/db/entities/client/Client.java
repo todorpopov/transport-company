@@ -18,7 +18,7 @@ public class Client {
     @Column(nullable = false)
     private boolean debtor;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "client_company",
             joinColumns = @JoinColumn(name = "client_id"),

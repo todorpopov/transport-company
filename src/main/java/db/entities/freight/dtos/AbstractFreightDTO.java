@@ -18,9 +18,9 @@ public abstract class AbstractFreightDTO {
 
     private Double cargoWeight;
 
-    private Double price;
+    private Double profit;
 
-    public AbstractFreightDTO(String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, EFreightType type, Double cargoWeight, Double price) throws InvalidFreighException {
+    public AbstractFreightDTO(String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, EFreightType type, Double cargoWeight, Double profit) throws InvalidFreighException {
         if (type == EFreightType.CARGO && cargoWeight == null) {
             throw new InvalidFreighException("Cargo freights must have weight");
         }
@@ -36,7 +36,7 @@ public abstract class AbstractFreightDTO {
         this.endDate = endDate;
         this.type = type;
         this.cargoWeight = cargoWeight;
-        this.price = price;
+        this.profit = profit;
     }
 
     public String getStartLocation() {
@@ -87,11 +87,11 @@ public abstract class AbstractFreightDTO {
         this.cargoWeight = cargoWeight;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getProfit() {
+        return profit;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setProfit(Double profit) {
+        this.profit = profit;
     }
 }

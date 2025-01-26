@@ -4,6 +4,7 @@ import db.DBUtils;
 import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -27,16 +28,23 @@ public class FreightDAO implements IDAO<Freight> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.persist(freight);
+            session.save(freight);
             transaction.commit();
         }
     }
 
     @Override
     public Freight getById(Long id) {
+        Transaction transaction = null;
+
+        Freight freight;
         try (Session session = DBUtils.getCurrentSession()) {
-            return session.get(Freight.class, id);
+            transaction = session.beginTransaction();
+            freight = session.get(Freight.class, id);
+            transaction.commit();
         }
+
+        return freight;
     }
 
     @Override
@@ -60,26 +68,77 @@ public class FreightDAO implements IDAO<Freight> {
 
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.merge(freight);
+            session.saveOrUpdate(freight);
             transaction.commit();
         }
     }
 
     @Override
     public void deleteById(Long id) {
+        Transaction transaction = null;
+
+        Freight freight;
         try (Session session = DBUtils.getCurrentSession()) {
-            Freight freight = session.get(Freight.class, id);
-            if (freight != null) {
-                session.remove(freight);
-            }
+            transaction = session.beginTransaction();
+            freight = session.get(Freight.class, id);
+            session.delete(freight);
+            transaction.commit();
         }
     }
 
-    // Method for calculating the total profits from all freights of the company
+    public List<Freight> getAllFreightsSorted() {
+        Transaction transaction = null;
 
-    // Method for filtering freights by start and end date
+        List<Freight> freights;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            freights = session.createQuery("from Freight order by startLocation asc, endLocation asc", Freight.class).getResultList();
+            transaction.commit();
+        }
 
-    // Method for filtering freights by their price
+        return freights;
+    }
 
-    // Filter by destination
+    public List<Freight> filterByLocation(String keyword) {
+        Transaction transaction = null;
+
+        List<Freight> freights;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "from Freight where lower(startLocation) like lower(:keyword) or lower(endLocation) like lower(:keyword)";
+            Query<Freight> query = session.createQuery(hql, Freight.class);
+            query.setParameter("keyword", keyword);
+            freights = query.list();
+            transaction.commit();
+        }
+
+        return freights;
+    }
+
+    public Long getNumberOfFreights() {
+        Transaction transaction = null;
+
+        Long result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            result = session.createQuery("select count(*) from Freight", Long.class).getSingleResult();
+            transaction.commit();
+        }
+
+        return result;
+    }
+
+    public Double getTotalProfits() {
+        Transaction transaction = null;
+
+        Double result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            result = session.createQuery("select sum(profit) from Freight", Double.class).getSingleResult();
+            transaction.commit();
+        }
+
+        return result;
+    }
 }

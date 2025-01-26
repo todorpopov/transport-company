@@ -19,9 +19,13 @@ public class MasterFileLoader {
 
     private final String path;
 
-    public MasterFileLoader(FreightService freightService, String path) {
+    public MasterFileLoader(FreightService freightService, String pathFromHome) {
         this.freightService = freightService;
-        this.path = path;
+        this.path = pathFromHome;
+    }
+
+    private String getHomePath() {
+        return System.getenv("HOME");
     }
 
     private String makeFileName() {
@@ -78,9 +82,9 @@ public class MasterFileLoader {
             cargoWeightElement.appendChild(document.createTextNode(cargoWeight));
             freightElement.appendChild(cargoWeightElement);
 
-            Element priceElement = document.createElement("price");
-            priceElement.appendChild(document.createTextNode(String.valueOf(freightDTO.getPrice())));
-            freightElement.appendChild(priceElement);
+            Element profitElement = document.createElement("profit");
+            profitElement.appendChild(document.createTextNode(String.valueOf(freightDTO.getProfit())));
+            freightElement.appendChild(profitElement);
 
             root.appendChild(freightElement);
         }
@@ -88,7 +92,9 @@ public class MasterFileLoader {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(document);
-        String filePath = this.path + "/" + this.makeFileName();
+
+        String filePath = this.getHomePath() + "/" + this.path + "/" + this.makeFileName();
+
         StreamResult result = new StreamResult(filePath);
         transformer.transform(source, result);
 

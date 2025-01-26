@@ -12,8 +12,8 @@ public class FreightDTO extends AbstractFreightDTO {
 
     private String driverName;
 
-    public FreightDTO(String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, EFreightType type, Double cargoWeight, Double price, Long id, String companyName, String driverName) throws InvalidFreighException {
-        super(startLocation, endLocation, startDate, endDate, type, cargoWeight, price);
+    public FreightDTO(String startLocation, String endLocation, LocalDate startDate, LocalDate endDate, EFreightType type, Double cargoWeight, Double profit, Long id, String companyName, String driverName) throws InvalidFreighException {
+        super(startLocation, endLocation, startDate, endDate, type, cargoWeight, profit);
         this.id = id;
         this.companyName = companyName;
         this.driverName = driverName;
@@ -45,5 +45,20 @@ public class FreightDTO extends AbstractFreightDTO {
 
     public String getTypeAsString() {
         return this.getType().toString();
+    }
+
+    @Override
+    public String toString() {
+        return "FreightDTO{" +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
+                ", driverName='" + driverName + '\'' +
+                ", startLocation='"+ this.getStartLocation() + '\'' +
+                ", endLocation='"+ this.getEndLocation() + '\'' +
+                ", startDate='"+ this.getStartDate().toString() + '\'' +
+                ", endLocation='"+ this.getEndDate().toString() + '\'' +
+                ", type='"+ this.getTypeAsString() + '\'' +
+                ", cargoWeight='"+ this.getCargoWeight() + '\'' +
+                ", profit='"+ this.getProfit() + '\'';
     }
 }

@@ -31,10 +31,18 @@ public class VehicleService implements IService<VehicleDTO, CreateVehicleDTO> {
         this.vehicleDao.save(vehicleEntity);
     }
 
+    public void saveOneEntity(Vehicle vehicleEntity) {
+        this.vehicleDao.save(vehicleEntity);
+    }
+
     @Override
     public VehicleDTO getOne(Long id) {
         Vehicle vehicleEntity = this.vehicleDao.getById(id);
         return VehicleMapper.toDTO(vehicleEntity);
+    }
+
+    public Vehicle getOneEntity(Long id) {
+        return this.vehicleDao.getById(id);
     }
 
     @Override
@@ -45,9 +53,17 @@ public class VehicleService implements IService<VehicleDTO, CreateVehicleDTO> {
                 .toList();
     }
 
+    public List<Vehicle> getAllEntities() {
+        return this.vehicleDao.getAll();
+    }
+
     @Override
     public void updateOne(CreateVehicleDTO createVehicleDto) {
         Vehicle vehicleEntity = VehicleMapper.toEntityFromCreateDTO(createVehicleDto);
+        this.vehicleDao.update(vehicleEntity);
+    }
+
+    public void updateOneEntity(Vehicle vehicleEntity) {
         this.vehicleDao.update(vehicleEntity);
     }
 
