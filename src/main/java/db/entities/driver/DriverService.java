@@ -4,6 +4,7 @@ package db.entities.driver;
 import db.entities.driver.dtos.CreateDriverDTO;
 import db.entities.driver.dtos.DriverDTO;
 import db.entities.driver.dtos.DriverMapper;
+import db.entities.driver.dtos.DriverShortDesciptionDTO;
 import db.entities.freight.Freight;
 import db.entities.freight.dtos.FreightMapper;
 import db.interfaces.IService;
@@ -11,6 +12,7 @@ import exceptions.InvalidFreighException;
 import org.example.Utils;
 
 import java.util.List;
+import java.util.Map;
 
 public class DriverService implements IService<DriverDTO, CreateDriverDTO> {
     private static DriverService instance;
@@ -95,5 +97,13 @@ public class DriverService implements IService<DriverDTO, CreateDriverDTO> {
         return Utils.streamCheck(driverEntities)
                 .map(DriverMapper::toDTO)
                 .toList();
+    }
+
+    public Map<DriverShortDesciptionDTO, Double> mapDriversByTotalProfits() {
+        return this.driverDao.mapDriversByTotalProfits();
+    }
+
+    public Map<DriverShortDesciptionDTO, Long> mapDriversByFreightCount() {
+        return this.driverDao.mapDriversByFreightCount();
     }
 }
