@@ -108,6 +108,8 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        System.out.println("----- DRIVERS -----");
+
         List<DriverDTO> filteredByQualification = driverService.filterByQualification(EDriverQualification.BUS_DRIVERS_LICENSE);
         System.out.println("\nDrivers filtered by qualification (BUS_DRIVERS_LICENSE):");
         filteredByQualification.forEach(System.out::println);
@@ -131,6 +133,8 @@ public class Main {
         mapDriversByFreightCount.forEach((dto, v) -> {
             System.out.println(dto.toString() + " - Total count: " + v);
         });
+
+        System.out.println("----- Companies -----");
 
         List<CompanyDTO> sortedCompanies = companyService.sortAllCompaniesByName();
         System.out.println("\nAll companies sorted by name:");
@@ -156,6 +160,8 @@ public class Main {
             System.out.println(dto.toString());
         });
 
+        System.out.println("----- Freights -----");
+
         Long freightCount = freightService.getNumberOfFreights();
         System.out.printf("\nNumber of freights found: %s", freightCount);
 
@@ -170,12 +176,16 @@ public class Main {
         System.out.printf("\nGet all freights with a start or end location - 'Burgas' : %s", filteredFreights);
         filteredFreights.forEach(System.out::println);
 
+        System.out.println("----- FILE EXPORT -----");
+
         MasterFileLoader loader = new MasterFileLoader(freightService, "/dev/transport-company");
         try {
             loader.exportFreights();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        System.out.println("----- DB SHUTDOWN -----");
 
         DBUtils.shutdown();
     }
