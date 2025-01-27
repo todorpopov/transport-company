@@ -146,10 +146,10 @@ public class DriverDAO implements IDAO<Driver> {
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
 
-            String hql = "SELECT d.id, d.name, SUM(f.profit) " +
-                    "FROM Driver d " +
-                    "JOIN d.freights f " +
-                    "GROUP BY d.id";
+            String hql = "select d.id, d.name, sum(f.profit) " +
+                    "from Driver d " +
+                    "join d.freights f " +
+                    "group by d.id";
 
             Query<Object[]> query = session.createQuery(hql, Object[].class);
             result = query.list();
@@ -178,10 +178,10 @@ public class DriverDAO implements IDAO<Driver> {
         try (Session session = DBUtils.getCurrentSession()) {
             transaction = session.beginTransaction();
 
-            String hql = "SELECT d.id, d.name, COUNT(f) " +
-                    "FROM Driver d " +
-                    "JOIN d.freights f " +
-                    "GROUP BY d.id";
+            String hql = "select d.id, d.name, count(f) " +
+                    "from Driver d " +
+                    "join d.freights f " +
+                    "group by d.id";
 
             Query<Object[]> query = session.createQuery(hql, Object[].class);
             result = query.list();

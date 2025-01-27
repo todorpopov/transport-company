@@ -1,11 +1,15 @@
 package db.entities.company;
 
 import db.DBUtils;
-import db.entities.vehicle.Vehicle;
+import db.entities.company.dtos.CompanyProfitsByDateDTO;
+import db.entities.company.dtos.CompanyProfitsDTO;
 import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyDAO implements IDAO<Company> {
@@ -84,11 +88,120 @@ public class CompanyDAO implements IDAO<Company> {
         }
     }
 
-    // Sort by name
+    public List<Company> sortByName() {
+        Transaction transaction = null;
 
-    // Sort by profits
+        List<Company> result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            result = session.createQuery("from Company order by name asc", Company.class).getResultList();
+            transaction.commit();
+        }
 
-    // Filter by profits
+        return result;
+    }
 
-    // All profits for a range of dates
+    public List<CompanyProfitsDTO> sortByProfits() {
+        Transaction transaction = null;
+
+        List<Object[]> result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "select c.id, c.name, sum(f.profit) " +
+                    "from Company c " +
+                    "join c.freights f " +
+                    "group by c.id " +
+                    "order by sum(f.profit) desc";
+
+            Query<Object[]> query = session.createQuery(hql);
+            result = query.list();
+
+            transaction.commit();
+        }
+
+        List<CompanyProfitsDTO> companyProfitsList = new ArrayList<>();
+        for (Object[] row : result) {
+            Long id = (Long) row[0];
+            String name = (String) row[1];
+            Double profits = (Double) row[2];
+
+            CompanyProfitsDTO dto = new CompanyProfitsDTO(id, name, profits);
+            companyProfitsList.add(dto);
+        }
+
+        return companyProfitsList;
+    }
+
+    public List<CompanyProfitsDTO> filterByProfits(Double lowerBoundInclusive, Double upperBoundInclusive) {
+        Transaction transaction = null;
+
+        List<Object[]> result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "select c.id, c.name, sum(f.profit) as profit " +
+                    "from Company c " +
+                    "join c.freights f " +
+                    "group by c.id " +
+                    "having sum(f.profit) between :lower and :upper " +
+                    "order by sum(f.profit) asc";
+
+            Query<Object[]> query = session.createQuery(hql)
+                    .setParameter("lower", lowerBoundInclusive)
+                    .setParameter("upper", upperBoundInclusive);
+            result = query.list();
+
+            transaction.commit();
+        }
+
+        List<CompanyProfitsDTO> companyProfitsList = new ArrayList<>();
+        for (Object[] row : result) {
+            Long id = (Long) row[0];
+            String name = (String) row[1];
+            Double profits = (Double) row[2];
+
+            CompanyProfitsDTO dto = new CompanyProfitsDTO(id, name, profits);
+            companyProfitsList.add(dto);
+        }
+
+        return companyProfitsList;
+    }
+
+    public List<CompanyProfitsByDateDTO> filterProfitsByDate(LocalDate startDate, LocalDate endDate) {
+        Transaction transaction = null;
+
+        List<Object[]> result;
+        try (Session session = DBUtils.getCurrentSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = "select c.id, c.name, sum(f.profit) as profit, f.startDate, f.endDate " +
+                    "from Company c " +
+                    "join c.freights f " +
+                    "where f.startDate >= :startDate and f.endDate <= :endDate " +
+                    "group by c.id, c.name, f.startDate, f.endDate " +
+                    "order by profit desc";
+
+            Query<Object[]> query = session.createQuery(hql)
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate);
+            result = query.list();
+
+            transaction.commit();
+        }
+
+        List<CompanyProfitsByDateDTO> companyProfitsList = new ArrayList<>();
+        for (Object[] row : result) {
+            Long id = (Long) row[0];
+            String name = (String) row[1];
+            Double profits = (Double) row[2];
+            LocalDate start = (LocalDate) row[3];
+            LocalDate end = (LocalDate) row[4];
+
+            CompanyProfitsByDateDTO dto = new CompanyProfitsByDateDTO(id, name, profits, start, end);
+            companyProfitsList.add(dto);
+        }
+
+        return companyProfitsList;
+    }
 }

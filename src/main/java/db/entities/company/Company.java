@@ -18,16 +18,16 @@ public class Company {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private Set<Driver> drivers = new HashSet<>();
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private Set<Vehicle> vehicles = new HashSet<>();
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private Set<Freight> freights = new HashSet<>();
 
-    @ManyToMany(mappedBy = "companies")
+    @ManyToMany(mappedBy = "companies", fetch = FetchType.EAGER)
     private Set<Client> clients = new HashSet<>();
 
     public Company() {

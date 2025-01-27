@@ -1,7 +1,6 @@
 package db.entities.vehicle;
 
 import db.DBUtils;
-import db.entities.freight.Freight;
 import db.interfaces.IDAO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

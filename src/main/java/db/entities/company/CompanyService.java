@@ -1,11 +1,10 @@
 package db.entities.company;
 
-import db.entities.company.dtos.CompanyDTO;
-import db.entities.company.dtos.CompanyMapper;
-import db.entities.company.dtos.CreateCompanyDTO;
+import db.entities.company.dtos.*;
 import db.interfaces.IService;
 import org.example.Utils;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class CompanyService implements IService<CompanyDTO, CreateCompanyDTO> {
@@ -47,8 +46,8 @@ public class CompanyService implements IService<CompanyDTO, CreateCompanyDTO> {
 
     @Override
     public List<CompanyDTO> getAll() {
-        List<Company> clientEntities = this.companyDao.getAll();
-        return Utils.streamCheck(clientEntities)
+        List<Company> companyEntities = this.companyDao.getAll();
+        return Utils.streamCheck(companyEntities)
                 .map(CompanyMapper::toDTO)
                 .toList();
     }
@@ -70,5 +69,24 @@ public class CompanyService implements IService<CompanyDTO, CreateCompanyDTO> {
     @Override
     public void deleteOne(Long id) {
         this.companyDao.deleteById(id);
+    }
+
+    public List<CompanyDTO> sortAllCompaniesByName() {
+        List<Company> companyEntities = this.companyDao.sortByName();
+        return Utils.streamCheck(companyEntities)
+                .map(CompanyMapper::toDTO)
+                .toList();
+    }
+
+    public List<CompanyProfitsDTO> sortByProfits() {
+        return this.companyDao.sortByProfits();
+    }
+
+    public List<CompanyProfitsDTO> filterByProfits(Double lowerBoundInclusive, Double upperBoundInclusive) {
+        return this.companyDao.filterByProfits(lowerBoundInclusive, upperBoundInclusive);
+    }
+
+    public List<CompanyProfitsByDateDTO> filterProfitsByDate(LocalDate startDate, LocalDate endDate) {
+        return this.companyDao.filterProfitsByDate(startDate, endDate);
     }
 }

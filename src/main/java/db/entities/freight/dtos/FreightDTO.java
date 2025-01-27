@@ -53,12 +53,12 @@ public class FreightDTO extends AbstractFreightDTO {
                 "id=" + id +
                 ", companyName='" + companyName + '\'' +
                 ", driverName='" + driverName + '\'' +
-                ", startLocation='"+ this.getStartLocation() + '\'' +
-                ", endLocation='"+ this.getEndLocation() + '\'' +
-                ", startDate='"+ this.getStartDate().toString() + '\'' +
-                ", endLocation='"+ this.getEndDate().toString() + '\'' +
-                ", type='"+ this.getTypeAsString() + '\'' +
-                ", cargoWeight='"+ this.getCargoWeight() + '\'' +
-                ", profit='"+ this.getProfit() + '\'';
+                ", startLocation='" + this.getStartLocation() + '\'' +
+                ", endLocation='" + this.getEndLocation() + '\'' +
+                ", startDate='" + this.getStartDate().toString() + '\'' +
+                ", endLocation='" + this.getEndDate().toString() + '\'' +
+                ", type='" + this.getTypeAsString() + '\'' +
+                ", cargoWeight='" + this.getCargoWeight() + '\'' +
+                ", profit='" + this.getProfit() + '\'';
     }
 }

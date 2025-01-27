@@ -5,10 +5,7 @@ import db.entities.driver.dtos.CreateDriverDTO;
 import db.entities.driver.dtos.DriverDTO;
 import db.entities.driver.dtos.DriverMapper;
 import db.entities.driver.dtos.DriverShortDesciptionDTO;
-import db.entities.freight.Freight;
-import db.entities.freight.dtos.FreightMapper;
 import db.interfaces.IService;
-import exceptions.InvalidFreighException;
 import org.example.Utils;
 
 import java.util.List;

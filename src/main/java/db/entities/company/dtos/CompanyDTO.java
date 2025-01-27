@@ -69,4 +69,12 @@ public class CompanyDTO extends AbstractCompanyDTO {
     public void setClients(Set<CompanyClientDTO> clients) {
         this.clients = clients;
     }
+
+    @Override
+    public String toString() {
+        return "CompanyDTO{" +
+                "id=" + id +
+                ", name=" + this.getName() +
+                '}';
+    }
 }

@@ -1,1 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><freights><freight><id>1</id><driver>Georgi</driver><company>Some Company</company><start-location>Sofia</start-location><end-location>Burgas</end-location><start-date>2025-01-01</start-date><end-date>2025-01-01</end-date><type>PEOPLE</type><cargo-weight>Not Applicable</cargo-weight><profit>1500.0</profit></freight><freight><id>2</id><driver>Georgi</driver><company>Some Company</company><start-location>Burgas</start-location><end-location>Sofia</end-location><start-date>2025-01-01</start-date><end-date>2025-01-01</end-date><type>PEOPLE</type><cargo-weight>Not Applicable</cargo-weight><profit>1600.0</profit></freight></freights>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<freights>
+    <freight>
+        <id>1</id>
+        <driver>Georgi</driver>
+        <company>A Company</company>
+        <start-location>Sofia</start-location>
+        <end-location>Burgas</end-location>
+        <start-date>2025-01-01</start-date>
+        <end-date>2025-01-01</end-date>
+        <type>PEOPLE</type>
+        <cargo-weight>Not Applicable</cargo-weight>
+        <profit>1500.0</profit>
+    </freight>
+    <freight>
+        <id>2</id>
+        <driver>Georgi</driver>
+        <company>A Company</company>
+        <start-location>Burgas</start-location>
+        <end-location>Sofia</end-location>
+        <start-date>2025-01-01</start-date>
+        <end-date>2025-01-01</end-date>
+        <type>PEOPLE</type>
+        <cargo-weight>Not Applicable</cargo-weight>
+        <profit>1600.0</profit>
+    </freight>
+    <freight>
+        <id>3</id>
+        <driver>Ivan</driver>
+        <company>B Company</company>
+        <start-location>Sofia</start-location>
+        <end-location>Rome</end-location>
+        <start-date>2025-01-02</start-date>
+        <end-date>2025-01-04</end-date>
+        <type>PEOPLE</type>
+        <cargo-weight>Not Applicable</cargo-weight>
+        <profit>3400.0</profit>
+    </freight>
+    <freight>
+        <id>4</id>
+        <driver>Ivan</driver>
+        <company>B Company</company>
+        <start-location>Rome</start-location>
+        <end-location>Sofia</end-location>
+        <start-date>2025-01-07</start-date>
+        <end-date>2025-01-09</end-date>
+        <type>PEOPLE</type>
+        <cargo-weight>Not Applicable</cargo-weight>
+        <profit>3200.0</profit>
+    </freight>
+</freights>
